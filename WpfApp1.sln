@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32901.215
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApp1", "WpfApp1\WpfApp1.csproj", "{2C7C9BD8-1982-4694-8430-68830DB31EF4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D3684EC0-4FE9-4E57-AD05-2320CE4B0F8A}"
+	ProjectSection(SolutionItems) = preProject
+		WpfApp1\bin\Debug\AccountDetails.xml = WpfApp1\bin\Debug\AccountDetails.xml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2C7C9BD8-1982-4694-8430-68830DB31EF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C7C9BD8-1982-4694-8430-68830DB31EF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C7C9BD8-1982-4694-8430-68830DB31EF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C7C9BD8-1982-4694-8430-68830DB31EF4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1A385B48-01F3-4FA6-9CB4-5EEDC90D0DC9}
+	EndGlobalSection
+EndGlobal
