@@ -14,7 +14,7 @@
                 <GradientStop Color="#FF171A21" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <TextBox x:Name="txtSearchBar" HorizontalAlignment="Left" Margin="229,42,0,0" TextWrapping="Wrap" Text="Search" VerticalAlignment="Top" Width="203" Height="28" FontSize="20"/>
+        <TextBox x:Name="txtSearchBar" HorizontalAlignment="Left" Margin="229,42,0,0" TextWrapping="Wrap" Text="Search" VerticalAlignment="Top" Width="203" Height="28" FontSize="20" TextChanged="txtSearchBar_TextChanged"/>
         <Button x:Name="btnSearch" Content="Search" HorizontalAlignment="Left" Margin="498,50,0,0" VerticalAlignment="Top" Width="53" RenderTransformOrigin="0.5,0.5" Background="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}">
             <Button.RenderTransform>
                 <TransformGroup>
@@ -28,15 +28,28 @@
         <Button x:Name="btnUserProfile"  HorizontalAlignment="Left" Margin="20,10,0,0" VerticalAlignment="Top" Width="85" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" Height="64" Click="btnUserProfile_Click">
             <Image Source="/imagelogo.png"/>
         </Button>
-        <Border BorderBrush="#FFF3E6E6" BorderThickness="1" Margin="0,5,0,333"/>
-        <ScrollBar HorizontalAlignment="Left" Margin="764,119,0,0" VerticalAlignment="Top" Height="291" Minimum="1" Maximum="240" Value="50"/>
-        <ComboBox x:Name="cboFilter" HorizontalAlignment="Left" Margin="661,48,0,0" VerticalAlignment="Top" Width="120" Background="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" SelectionChanged="ComboBox_SelectionChanged">
-            <ComboBoxItem Content="Price"/>
-            <ComboBoxItem Content="Author"/>
-            <ComboBoxItem Content="Genre"/>
-
-        </ComboBox>
         <Label Content="Filter:" HorizontalAlignment="Left" Margin="593,46,0,0" VerticalAlignment="Top" Width="53" Foreground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+        <DataGrid x:Name="dtgBooksShowing" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="20,119,382,74" SelectionChanged="dtgBooksShowing_SelectionChanged"/>
+        <Button x:Name="btnCheckout" Content="Checkout" HorizontalAlignment="Left" Margin="503,367,0,0" VerticalAlignment="Top" Width="74" RenderTransformOrigin="0.5,0.5" Click="btnCheckout_Click">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.224"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <TextBox x:Name="txtTitle" HorizontalAlignment="Left" Margin="620,128,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="txtAuthor" HorizontalAlignment="Left" Margin="620,159,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="txtYear" HorizontalAlignment="Left" Margin="620,190,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="txtPublisher" HorizontalAlignment="Left" Margin="620,217,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="txtIsbn" HorizontalAlignment="Left" Margin="620,249,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="txtCategory" HorizontalAlignment="Left" Margin="620,281,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="btnReserve" Content="Reserve" HorizontalAlignment="Left" Margin="620,366,0,0" VerticalAlignment="Top" Width="73"/>
+        <Button x:Name="btnReturn" Content="Return" HorizontalAlignment="Left" Margin="498,319,0,0" VerticalAlignment="Top" Width="77"/>
+        <Label x:Name="lblTest" Content="Label" HorizontalAlignment="Left" Margin="20,79,0,0" VerticalAlignment="Top" Foreground="#FFF9F6F6" Width="85"/>
+        <TextBox x:Name="txtLibraryCard" HorizontalAlignment="Left" Margin="620,320,0,0" TextWrapping="Wrap" Text="Library card # " VerticalAlignment="Top" Width="120"/>
 
 
     </Grid>

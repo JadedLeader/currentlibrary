@@ -42,7 +42,10 @@ namespace WpfApp1
             account.password = txtPasswordSignup.Text;
             account.email = txtEmail.Text;
             account.PhoneNumber = txtPhoneNumber.Text;
-            account.ISBN = randomise;
+            account.librarycard = randomise;
+            account.bookscheckedout = "none";
+            account.numberofbookscheckedout = "0";
+            account.duedate = DateTime.Now; 
 
             XmlDocument doc = new XmlDocument();
 
@@ -63,14 +66,28 @@ namespace WpfApp1
             XmlElement PhoneNumber = doc.CreateElement("PhoneNumber");
             PhoneNumber.InnerText = account.PhoneNumber;
 
-            XmlElement ISBN = doc.CreateElement("ISBN"); 
-            ISBN.InnerText = account.ISBN;
+            XmlElement LibraryCard = doc.CreateElement("LibraryCard"); 
+            LibraryCard.InnerText = account.librarycard;
+
+            XmlElement bookscheckedout = doc.CreateElement("BooksCheckedOut");
+            bookscheckedout.InnerText = account.bookscheckedout;
+
+            XmlElement numberofbookscheckedout = doc.CreateElement("NumberOfBooksCheckedOut");
+            numberofbookscheckedout.InnerText = account.numberofbookscheckedout;
+
+            XmlElement duedate = doc.CreateElement("DueDate");
+            duedate.InnerText = account.duedate.ToString();
+
+            
 
             user.AppendChild(username);
             user.AppendChild(password);
             user.AppendChild(email);
             user.AppendChild(PhoneNumber);
-            user.AppendChild(ISBN);
+            user.AppendChild(LibraryCard);
+            user.AppendChild(bookscheckedout);
+            user.AppendChild(numberofbookscheckedout);
+            user.AppendChild(duedate);
 
             doc.DocumentElement.AppendChild(user);
             doc.Save("AccountDetails.xml");

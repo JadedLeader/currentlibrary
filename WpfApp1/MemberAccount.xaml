@@ -13,6 +13,10 @@
                 <GradientStop Color="#FF171A21" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
+        <Label Content="Account overview" HorizontalAlignment="Center" Margin="0,25,0,0" VerticalAlignment="Top" Width="184" Foreground="#FFFBF4F4" FontSize="20" FontWeight="Bold"/>
+        <Border BorderBrush="White" BorderThickness="1" Margin="0,0,662,0"/>
+        <Border BorderBrush="White" BorderThickness="1" Margin="0,0,0,347"/>
+        <Button x:Name="btnCurrentBooksCheckedOut" Content="Checked out books" HorizontalAlignment="Left" Margin="10,119,0,0" VerticalAlignment="Top" Width="106" Height="19"/>
 
     </Grid>
 </Window>

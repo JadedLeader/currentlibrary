@@ -28,6 +28,7 @@
         <Label Grid.Column="1" Content="Password:" HorizontalAlignment="Left" Margin="73,166,0,0" VerticalAlignment="Top" Foreground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
         <Label Grid.Column="1" Content="Dont have an account?" HorizontalAlignment="Left" Margin="81,296,0,0" VerticalAlignment="Top" Width="135" Foreground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
         <Button x:Name="btnCancel" Grid.Column="1" Content="Cancel" HorizontalAlignment="Left" Margin="300,220,0,0" VerticalAlignment="Top" Width="94" Background="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
+        <Button x:Name="btnAdmins" Grid.Column="1" Content="admins" HorizontalAlignment="Left" Margin="393,297,0,0" VerticalAlignment="Top" Width="72" Click="btnAdmins_Click" Background="#FFF7F6F6" Height="25"/>
 
     </Grid>
 </Window>

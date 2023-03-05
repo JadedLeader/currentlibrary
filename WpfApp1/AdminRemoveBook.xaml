@@ -1,0 +1,23 @@
+﻿<Window x:Class="WpfApp1.AdminRemoveBook"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="AdminRemoveBook" Height="450" Width="800">
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="Black"/>
+                <GradientStop Color="#FF171A21" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Label Content="Book removal " HorizontalAlignment="Center" Margin="0,20,0,0" VerticalAlignment="Top" Foreground="#FFFFFEFE" FontSize="20" FontWeight="Bold"/>
+        <DataGrid x:Name="dtgBookRemoval" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,76,281,37"/>
+        <Button x:Name="btnRemove" Content="Remove" HorizontalAlignment="Left" Margin="569,318,0,0" VerticalAlignment="Top" Width="58" Click="btnRemove_Click"/>
+        <Button x:Name="btnRefresh" Content="Refresh" HorizontalAlignment="Left" Margin="657,318,0,0" VerticalAlignment="Top" Width="58" Click="btnRefresh_Click"/>
+        <TextBox x:Name="txtTitle" HorizontalAlignment="Left" Margin="569,76,0,0" TextWrapping="Wrap" Text="Title" VerticalAlignment="Top" Width="120"/>
+
+    </Grid>
+</Window>

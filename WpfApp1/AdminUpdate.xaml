@@ -1,0 +1,28 @@
+﻿<Window x:Class="WpfApp1.AdminUpdate"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="AdminUpdate" Height="450" Width="800">
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="Black"/>
+                <GradientStop Color="#FF171A21" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <DataGrid x:Name="dtgUpdateGrid" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="21,72,278,72"/>
+        <Button x:Name="btnUpdate" Content="Update" HorizontalAlignment="Left" Margin="569,347,0,0" VerticalAlignment="Top" Width="84" Click="btnUpdate_Click"/>
+        <Button x:Name="btnRefresh" Content="Refresh" HorizontalAlignment="Left" Margin="693,347,0,0" VerticalAlignment="Top" Width="81" Click="btnRefresh_Click"/>
+        <Label Content="Update Book" HorizontalAlignment="Left" Margin="383,10,0,0" VerticalAlignment="Top" Width="139" FontSize="20" FontWeight="Bold" Background="#FFF7F7F7"/>
+        <TextBox x:Name="txtTitle" HorizontalAlignment="Left" Margin="622,90,0,0" TextWrapping="Wrap" Text="Title " VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="txtAuthor" HorizontalAlignment="Left" Margin="622,128,0,0" TextWrapping="Wrap" Text="Author " VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="txtYear" HorizontalAlignment="Left" Margin="622,167,0,0" TextWrapping="Wrap" Text="Year" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="txtPublisher" HorizontalAlignment="Left" Margin="622,0,0,0" TextWrapping="Wrap" Text="Publisher" VerticalAlignment="Center" Width="120"/>
+        <TextBox x:Name="txtISBN" HorizontalAlignment="Left" Margin="622,246,0,0" TextWrapping="Wrap" Text="isbn" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="txtCategory" HorizontalAlignment="Left" Margin="622,280,0,0" TextWrapping="Wrap" Text="Category" VerticalAlignment="Top" Width="120"/>
+
+    </Grid>
+</Window>
