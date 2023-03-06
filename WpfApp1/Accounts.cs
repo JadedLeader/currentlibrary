@@ -23,7 +23,7 @@ namespace WpfApp1
         
         public string bookscheckedout { get; set; }
 
-        public DateTime duedate { get; set; }
+        public string duedate { get; set; }
 
         
 

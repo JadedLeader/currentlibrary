@@ -15,6 +15,9 @@ using System.Data;
 using System.Xml;
 using System.Security.Principal;
 using System.Management.Instrumentation;
+using static System.Net.Mime.MediaTypeNames;
+using System.IO;
+using System.Xml.Linq;
 
 namespace WpfApp1
 {
@@ -71,14 +74,39 @@ namespace WpfApp1
 
             //call checkout
 
-            xmlController uses = new xmlController();
+            //this is currently setup so that if the user doesn't have a library card within the system it wont let them take a book out
 
-            Accounts account = new Accounts();
+            
 
-            uses.CheckingOutBook(txtTitle.Text, account);
+            XElement loading = XElement.Load(path);
+            IEnumerable<XElement> librarycard =
+                from data in loading.Descendants("LibraryCard")
+                select data;
+            foreach (XElement user in librarycard)
+            {
+                if (txtLibraryCard.Text == user.Value)
+                {
+                    MessageBox.Show("Library card is within the system");
+                }
+                else if( txtLibraryCard.Text != user.Value )
+                {
+                    MessageBox.Show("library card is not within the system");
 
-            MessageBox.Show("book has been checked out");
+                }
+                
+            }
 
+            
+             xmlController uses = new xmlController();
+
+             Accounts account = new Accounts();
+
+             uses.CheckingOutBook(txtTitle.Text, account);
+
+             MessageBox.Show("book has been checked out");
+            
+
+            
 
 
         }
@@ -95,7 +123,7 @@ namespace WpfApp1
             txtCategory.Text = row.Row.ItemArray[5].ToString();
         }
 
-        DataGrid grid;
+        
         private void txtSearchBar_TextChanged(object sender, TextChangedEventArgs e)
         {
             

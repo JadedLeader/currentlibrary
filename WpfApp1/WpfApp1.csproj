@@ -72,6 +72,7 @@
       <DependentUpon>BookHomePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Books.cs" />
+    <Compile Include="Global.cs" />
     <Compile Include="MemberAccount.xaml.cs">
       <DependentUpon>MemberAccount.xaml</DependentUpon>
     </Compile>

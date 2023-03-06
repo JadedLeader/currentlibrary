@@ -24,9 +24,12 @@ namespace WpfApp1
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Global _global;
 
         public MainWindow()
         {
+            _global = new Global();
+
             InitializeComponent();
         }
 
@@ -34,64 +37,103 @@ namespace WpfApp1
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            int counter = 0;
+
+
+            /*  XmlDocument xml = new XmlDocument();
+
+              xml.Load(path);
+
+              //grab the username and password from the xml file 
+
+              string usernames = txtUsernameInput.Text;
+              string passwords = txtPasswordInput.Text;
+
+
+
+              XmlNodeList nodelist = xml.GetElementsByTagName("username");
+              string username = string.Empty; 
+
+              foreach (XmlNode node in nodelist)
+              {
+                  username = node.InnerText;
+
+                  if(usernames == username)
+                  {
+                      counter++;
+                      MessageBox.Show("username worked");
+                  }
+              }
+
+              XmlNodeList nodelist2 = xml.GetElementsByTagName("password"); 
+              string password = string.Empty;
+
+              foreach(XmlNode node in nodelist2)
+              {
+                  password = node.InnerText;
+
+                  if(passwords == password)
+                  {
+                      counter++;
+                      MessageBox.Show("password worked");
+                  }
+
+              }
+
+
+              if(counter == 2)
+              {
+                  BookHomePage home = new BookHomePage();
+
+                  home.Show();
+
+                  this.Hide();
+              }
+
+              Accounts account = new Accounts(); */
 
             string path = "AccountDetails.xml";
 
-            XmlDocument xml = new XmlDocument();
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.Load(path);
 
-            xml.Load(path);
-
-            //grab the username and password from the xml file 
-
-            string usernames = txtUsernameInput.Text;
-            string passwords = txtPasswordInput.Text;
-
-            
-
-            XmlNodeList nodelist = xml.GetElementsByTagName("username");
-            string username = string.Empty; 
+            XmlNodeList nodelist = xmlDoc.DocumentElement.SelectNodes("/accounts/user");
 
             foreach (XmlNode node in nodelist)
             {
-                username = node.InnerText;
+                //to get the values of nodes within the user node
+                XmlNode username = node.SelectSingleNode("username");
+                XmlNode password = node.SelectSingleNode("password");
 
-                if(usernames == username)
+                if (txtUsernameInput.Text == username.InnerText && txtPasswordInput.Text == password.InnerText)
                 {
-                    counter++;
-                    MessageBox.Show("username worked");
+                    _global.currentuser = new Accounts
+                    {
+                        username = username.InnerText,
+                        password = password.InnerText,
+                        email = node.SelectSingleNode("email").InnerText,
+                        PhoneNumber = node.SelectSingleNode("PhoneNumber").InnerText,
+                        librarycard = node.SelectSingleNode("LibraryCard").InnerText,
+                        numberofbookscheckedout = node.SelectSingleNode("NumberOfBooksCheckedOut").InnerText,
+                        bookscheckedout = node.SelectSingleNode("BooksCheckedOut").InnerText,
+                        duedate = node.SelectSingleNode("DueDate").InnerText,
+
+
+                    };
+
+                    MessageBox.Show("username and password are within the file");
+
+                    BookHomePage home = new BookHomePage();
+
+                    home.Show();
+
+                    this.Hide();
+
                 }
             }
 
-            XmlNodeList nodelist2 = xml.GetElementsByTagName("password"); 
-            string password = string.Empty;
-
-            foreach(XmlNode node in nodelist2)
-            {
-                password = node.InnerText;
-
-                if(passwords == password)
-                {
-                    counter++;
-                    MessageBox.Show("password worked");
-                }
-              
-            }
 
 
-            if(counter == 2)
-            {
-                BookHomePage home = new BookHomePage();
 
-                home.Show();
-
-                this.Hide();
-            }
-
-            Accounts account = new Accounts(); 
-
-
-            
 
         }
 

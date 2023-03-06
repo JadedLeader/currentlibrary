@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Reflection;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml; 
+using System.Xml;
+using System.Xml.Linq;
+using System.Xml.Serialization;
 
 namespace WpfApp1
 {
@@ -122,18 +126,42 @@ namespace WpfApp1
             checking.ChildNodes.Item(5).InnerText = title;
             checking.ChildNodes.Item(7).InnerText = DateTime.Now.AddDays(14).ToString();
 
+            //we have to check that the library card number that was entered into the text box is the same as in the file
+            
+
+
             doc.Save(paths);
             
         }
 
-        public void GettingLibraryCard(Accounts account)
+        public void AddingMember(Accounts member)
         {
-            XmlDocument doc = new XmlDocument();
+            //load the file 
 
-            doc.Load(paths);
+            XDocument loading = XDocument.Load(paths);
 
-            XmlNode checking = doc.SelectSingleNode("//user/LibraryCard");
+            Accounts account = new Accounts();
 
+           /* account.username = txtUsernameSignup.Text;
+            account.password = txtPasswordSignup.Text;
+            account.email = txtEmail.Text;
+            account.PhoneNumber = txtPhoneNumber.Text;
+            account.librarycard = randomise;
+            account.bookscheckedout = "none";
+            account.numberofbookscheckedout = "0";
+            account.duedate = DateTime.Now; */
+
+            loading.Element("accounts").Add(new XElement("user",
+                new XElement("username", member.username),
+                new XElement("password", member.password),
+                new XElement("email", member.email),
+                new XElement("PhoneNumber", member.PhoneNumber),
+                new XElement("LibraryCard", member.librarycard),
+                new XElement("numberofbookscheckedout", member.numberofbookscheckedout),
+                new XElement("bookscheckedout", member.bookscheckedout),
+                new XElement("duedate", member.duedate)));
+
+            loading.Save(paths); 
 
         }
 
