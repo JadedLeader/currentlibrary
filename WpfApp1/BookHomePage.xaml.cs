@@ -26,10 +26,12 @@ namespace WpfApp1
     /// </summary>
     public partial class BookHomePage : Window
     {
-        string path = "AccountDetails.xml";
+        string account = "AccountDetails.xml";
 
         private Global _global;
         public String Username;
+
+        public string counter;
         public BookHomePage(Global global )
         {
             InitializeComponent();
@@ -80,43 +82,74 @@ namespace WpfApp1
 
         private void btnCheckout_Click(object sender, RoutedEventArgs e)
         {
-            //we need to take the value of the title text box and update the users info with the title of that text box
+            /* checking out a book:
 
-            //call checkout
+            search by the users username
 
-            //this is currently setup so that if the user doesn't have a library card within the system it wont let them take a book out
+            get the descendants of the username
 
-            
+            make sure that the library card # they entered is in the same child node as the username 
 
-            XElement loading = XElement.Load(path);
-            IEnumerable<XElement> librarycard =
-                from data in loading.Descendants("LibraryCard")
-                select data;
-            foreach (XElement user in librarycard)
+            add the title of the book into the books checked out element
+    
+            add a month to the due date of when the book was checked out  */
+
+             XDocument doc = XDocument.Load(account);
+
+          /*   bool isLibraryCardInSystem = doc.Descendants("user")
+            .Where(x => x.Element("username").Value == Username)
+            .Any(x => x.Element("LibraryCard").Value == txtLibraryCard.Text);
+
+            if (isLibraryCardInSystem)
             {
-                if (txtLibraryCard.Text == user.Value)
-                {
-                    MessageBox.Show("Library card is within the system");
-                }
-                else if( txtLibraryCard.Text != user.Value )
-                {
-                    MessageBox.Show("library card is not within the system");
+                //if library card is within the system this executes
+                MessageBox.Show("library card is within the system");
 
-                }
-                
+                //adding the book title to the books checked out part of the xml file
+                isLibraryCardInSystem.Element("BooksCheckedOut").Value == txtTitle.Text;
+            }
+            else
+            {
+                MessageBox.Show("library card is not within the system");
+            } */
+
+            //getting all of the descendants of user
+            //filtering via the username
+
+            var singleUser = doc.Descendants("user")
+            .SingleOrDefault(x => x.Element("username").Value == Username);
+
+            if (singleUser == null)
+            {
+                //you would need to handle if it could not find the user for some reason.
+                return;
             }
 
-            
-             xmlController uses = new xmlController();
+            if (singleUser.Element("LibraryCard").Value == txtLibraryCard.Text)
+            {
+                DateTime date = DateTime.Now;
 
-             Accounts account = new Accounts();
+                MessageBox.Show("library card is within the system");
 
-             uses.CheckingOutBook(txtTitle.Text, account);
+                singleUser.Element("BooksCheckedOut").Value = txtTitle.Text;
 
-             MessageBox.Show("book has been checked out");
-            
+                singleUser.Element("NumberOfBooksCheckedOut").Value = counter += 1;
 
-            
+                singleUser.Element("DueDate").Value = date.AddMonths(1).ToString();
+
+                singleUser.Document.Save(account);
+            }
+            else
+            {
+                MessageBox.Show("library card is not within the system");
+            }
+
+
+
+
+
+
+
 
 
         }
