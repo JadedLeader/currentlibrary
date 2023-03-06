@@ -8,7 +8,7 @@ namespace WpfApp1
 {
     public class Global
     {
-        public Accounts currentuser { get; set; }
+        public Accounts UserCurrent { get; set; }
 
     }
 }

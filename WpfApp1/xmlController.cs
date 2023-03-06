@@ -15,9 +15,13 @@ namespace WpfApp1
     public class xmlController
     {
 
+        private Global _global;
+
         string path = "Library.xml";
 
         string paths = "AccountDetails.xml";
+
+        public String UsersName;
 
         public void CheckoutBook()
         {
@@ -134,36 +138,8 @@ namespace WpfApp1
             
         }
 
-        public void AddingMember(Accounts member)
-        {
-            //load the file 
-
-            XDocument loading = XDocument.Load(paths);
-
-            Accounts account = new Accounts();
-
-           /* account.username = txtUsernameSignup.Text;
-            account.password = txtPasswordSignup.Text;
-            account.email = txtEmail.Text;
-            account.PhoneNumber = txtPhoneNumber.Text;
-            account.librarycard = randomise;
-            account.bookscheckedout = "none";
-            account.numberofbookscheckedout = "0";
-            account.duedate = DateTime.Now; */
-
-            loading.Element("accounts").Add(new XElement("user",
-                new XElement("username", member.username),
-                new XElement("password", member.password),
-                new XElement("email", member.email),
-                new XElement("PhoneNumber", member.PhoneNumber),
-                new XElement("LibraryCard", member.librarycard),
-                new XElement("numberofbookscheckedout", member.numberofbookscheckedout),
-                new XElement("bookscheckedout", member.bookscheckedout),
-                new XElement("duedate", member.duedate)));
-
-            loading.Save(paths); 
-
-        }
+        
+        
 
 
     }

@@ -38,59 +38,6 @@ namespace WpfApp1
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
 
-
-            /*  XmlDocument xml = new XmlDocument();
-
-              xml.Load(path);
-
-              //grab the username and password from the xml file 
-
-              string usernames = txtUsernameInput.Text;
-              string passwords = txtPasswordInput.Text;
-
-
-
-              XmlNodeList nodelist = xml.GetElementsByTagName("username");
-              string username = string.Empty; 
-
-              foreach (XmlNode node in nodelist)
-              {
-                  username = node.InnerText;
-
-                  if(usernames == username)
-                  {
-                      counter++;
-                      MessageBox.Show("username worked");
-                  }
-              }
-
-              XmlNodeList nodelist2 = xml.GetElementsByTagName("password"); 
-              string password = string.Empty;
-
-              foreach(XmlNode node in nodelist2)
-              {
-                  password = node.InnerText;
-
-                  if(passwords == password)
-                  {
-                      counter++;
-                      MessageBox.Show("password worked");
-                  }
-
-              }
-
-
-              if(counter == 2)
-              {
-                  BookHomePage home = new BookHomePage();
-
-                  home.Show();
-
-                  this.Hide();
-              }
-
-              Accounts account = new Accounts(); */
-
             string path = "AccountDetails.xml";
 
             XmlDocument xmlDoc = new XmlDocument();
@@ -106,7 +53,7 @@ namespace WpfApp1
 
                 if (txtUsernameInput.Text == username.InnerText && txtPasswordInput.Text == password.InnerText)
                 {
-                    _global.currentuser = new Accounts
+                    _global.UserCurrent = new Accounts
                     {
                         username = username.InnerText,
                         password = password.InnerText,
@@ -115,18 +62,20 @@ namespace WpfApp1
                         librarycard = node.SelectSingleNode("LibraryCard").InnerText,
                         numberofbookscheckedout = node.SelectSingleNode("NumberOfBooksCheckedOut").InnerText,
                         bookscheckedout = node.SelectSingleNode("BooksCheckedOut").InnerText,
-                        duedate = node.SelectSingleNode("DueDate").InnerText,
+                        duedate = node.SelectSingleNode("DueDate").InnerText, 
 
 
                     };
 
-                    MessageBox.Show("username and password are within the file");
-
-                    BookHomePage home = new BookHomePage();
+                    BookHomePage home = new BookHomePage(_global);
 
                     home.Show();
 
                     this.Hide();
+
+                    MessageBox.Show("username and password are within the file");
+
+                    
 
                 }
             }
@@ -154,5 +103,7 @@ namespace WpfApp1
 
             this.Close();
         }
+
+        
     }
 }

@@ -9,27 +9,22 @@ namespace WpfApp1
     public class Accounts
     {
 
-        public string username { get; set; }
+        public String username { get; set; }
 
-        public string password { get; set; }
+        public String password { get; set; }
 
-        public string email { get; set; }
+        public String email { get; set; }
 
-        public string PhoneNumber { get; set; }
+        public String PhoneNumber { get; set; }
 
-        public string librarycard { get; set; }
+        public String librarycard { get; set; }
 
-        public string numberofbookscheckedout { get; set; }
+        public String numberofbookscheckedout { get; set; }
         
-        public string bookscheckedout { get; set; }
+        public String bookscheckedout { get; set; }
 
-        public string duedate { get; set; }
+        public String duedate { get; set; }
 
-        
-
-
-
-        public static Accounts activeUser = new Accounts();
 
     }
 }

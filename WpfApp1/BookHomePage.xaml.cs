@@ -28,11 +28,12 @@ namespace WpfApp1
     {
         string path = "AccountDetails.xml";
 
-        public BookHomePage()
+        private Global _global;
+        public String Username;
+        public BookHomePage(Global global )
         {
             InitializeComponent();
-
-            lblTest.Content = Accounts.activeUser.username;
+            
 
             DataSet data = new DataSet();
 
@@ -41,6 +42,15 @@ namespace WpfApp1
             dtgBooksShowing.ItemsSource = data.Tables[0].DefaultView;
 
             //making it show the current users username when they're logged in
+
+            _global = global;
+
+            Username = _global.UserCurrent.username;
+
+            lblTest.Content = Username;
+            
+            
+            
 
 
 
@@ -129,5 +139,9 @@ namespace WpfApp1
             
 
         }
+
+        
+
+
     }
 }
