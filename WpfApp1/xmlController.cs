@@ -109,34 +109,7 @@ namespace WpfApp1
             doc.Save(paths);
         }
 
-        //this currently only adds the book to the top username, not the one you're actually logged into
-        public void CheckingOutBook(string title, Accounts member)
-        {
-            
-
-            XmlDocument doc = new XmlDocument();
-
-            //loadign account details
-            doc.Load(paths);
-
-            //we want to search the account xml file from the global variable that's stored in the accounts class
-
-            XmlNode checking = doc.SelectSingleNode("//user");
-            XmlNode CheckedOut = doc.CreateElement("bookscheckedout");
-            XmlNode NumofBooks = doc.CreateElement("numberofbookscheckedout");
-            XmlNode DueDate = doc.CreateElement("DueDate");
-
-            //this currently only allows a user to check out one book at a time
-            checking.ChildNodes.Item(5).InnerText = title;
-            checking.ChildNodes.Item(7).InnerText = DateTime.Now.AddDays(14).ToString();
-
-            //we have to check that the library card number that was entered into the text box is the same as in the file
-            
-
-
-            doc.Save(paths);
-            
-        }
+        
 
         
         

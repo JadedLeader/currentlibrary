@@ -51,22 +51,11 @@ namespace WpfApp1
 
             lblTest.Content = Username;
             
-            
-            
-
-
-
-            
-
-
-
-
-
         }
 
         private void btnUserProfile_Click(object sender, RoutedEventArgs e)
         {
-            MemberAccount MemberAccount = new MemberAccount();
+            MemberAccount MemberAccount = new MemberAccount(_global);
 
             MemberAccount.Show(); 
 
@@ -94,28 +83,10 @@ namespace WpfApp1
     
             add a month to the due date of when the book was checked out  */
 
+            //loading the file
              XDocument doc = XDocument.Load(account);
 
-          /*   bool isLibraryCardInSystem = doc.Descendants("user")
-            .Where(x => x.Element("username").Value == Username)
-            .Any(x => x.Element("LibraryCard").Value == txtLibraryCard.Text);
-
-            if (isLibraryCardInSystem)
-            {
-                //if library card is within the system this executes
-                MessageBox.Show("library card is within the system");
-
-                //adding the book title to the books checked out part of the xml file
-                isLibraryCardInSystem.Element("BooksCheckedOut").Value == txtTitle.Text;
-            }
-            else
-            {
-                MessageBox.Show("library card is not within the system");
-            } */
-
-            //getting all of the descendants of user
-            //filtering via the username
-
+            //filtering all the information so we're only getting everything below username
             var singleUser = doc.Descendants("user")
             .SingleOrDefault(x => x.Element("username").Value == Username);
 
@@ -125,19 +96,32 @@ namespace WpfApp1
                 return;
             }
 
+            //grabbing the library card node, checkng it's value
             if (singleUser.Element("LibraryCard").Value == txtLibraryCard.Text)
             {
+               //going into the bookscheckedout node, grabbing the book element and counting the total # that are in there
+                if(singleUser.Element("BooksCheckedOut").Elements("book").Count() >= 6)
+                {
+                    //showing the user a message if the book limit has been reached
+                    MessageBox.Show("Current limit reached");
+
+                    return;
+                }
+
+                //name of the element, contents of the element
                 DateTime date = DateTime.Now;
+                
+                //adding a books checked out head element, making a blank sub directory of book, populating it with everything 
+                singleUser.Element("BooksCheckedOut").Add(
+                    new XElement("book", 
+                        new XElement("BookCheckedOut", txtTitle.Text), 
+                        new XElement("DateCheckedOut", date.ToShortDateString()), 
+                        new XElement("DueDate", date.AddMonths(1).ToShortDateString())));
 
-                MessageBox.Show("library card is within the system");
-
-                singleUser.Element("BooksCheckedOut").Value = txtTitle.Text;
-
-                singleUser.Element("NumberOfBooksCheckedOut").Value = counter += 1;
-
-                singleUser.Element("DueDate").Value = date.AddMonths(1).ToString();
-
+                //savign the file
                 singleUser.Document.Save(account);
+
+                MessageBox.Show("Save complete");
             }
             else
             {
@@ -173,8 +157,14 @@ namespace WpfApp1
 
         }
 
-        
+        private void btnReturn_Click(object sender, RoutedEventArgs e)
+        {
+            //check the users username that they logged in with
 
+            //check the users library card # 
 
+            /* if library card is number is valid then we want to go to the book node where it has the title of the book
+               we then want to delete all of the things under that book node, book checked out, date checked out and due date */
+        }
     }
 }

@@ -17,6 +17,7 @@
         <Border BorderBrush="White" BorderThickness="1" Margin="0,0,662,0"/>
         <Border BorderBrush="White" BorderThickness="1" Margin="0,0,0,347"/>
         <Button x:Name="btnCurrentBooksCheckedOut" Content="Checked out books" HorizontalAlignment="Left" Margin="10,119,0,0" VerticalAlignment="Top" Width="106" Height="19"/>
+        <DataGrid x:Name="dtgMemberAccount" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="180,101,10,27"/>
 
     </Grid>
 </Window>

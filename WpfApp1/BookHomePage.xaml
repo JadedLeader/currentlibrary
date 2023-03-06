@@ -30,7 +30,7 @@
         </Button>
         <Label Content="Filter:" HorizontalAlignment="Left" Margin="593,46,0,0" VerticalAlignment="Top" Width="53" Foreground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
         <DataGrid x:Name="dtgBooksShowing" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="20,119,382,74" SelectionChanged="dtgBooksShowing_SelectionChanged"/>
-        <Button x:Name="btnCheckout" Content="Checkout" HorizontalAlignment="Left" Margin="503,367,0,0" VerticalAlignment="Top" Width="74" RenderTransformOrigin="0.5,0.5" Click="btnCheckout_Click">
+        <Button x:Name="btnCheckout" Content="Checkout" HorizontalAlignment="Left" Margin="503,367,0,0" VerticalAlignment="Top" Width="74" RenderTransformOrigin="0.5,0.5" Click="btnCheckout_Click" Background="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}">
             <Button.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -40,16 +40,16 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
-        <TextBox x:Name="txtTitle" HorizontalAlignment="Left" Margin="620,128,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="txtAuthor" HorizontalAlignment="Left" Margin="620,159,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="txtYear" HorizontalAlignment="Left" Margin="620,190,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="txtPublisher" HorizontalAlignment="Left" Margin="620,217,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="txtIsbn" HorizontalAlignment="Left" Margin="620,249,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="txtCategory" HorizontalAlignment="Left" Margin="620,281,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="btnReserve" Content="Reserve" HorizontalAlignment="Left" Margin="620,366,0,0" VerticalAlignment="Top" Width="73"/>
-        <Button x:Name="btnReturn" Content="Return" HorizontalAlignment="Left" Margin="498,319,0,0" VerticalAlignment="Top" Width="77"/>
+        <TextBox x:Name="txtTitle" HorizontalAlignment="Left" Margin="620,128,0,0" TextWrapping="Wrap" Text="Book Title" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="txtAuthor" HorizontalAlignment="Left" Margin="620,159,0,0" TextWrapping="Wrap" Text="Book Author" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="txtYear" HorizontalAlignment="Left" Margin="620,190,0,0" TextWrapping="Wrap" Text="Book Year" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="txtPublisher" HorizontalAlignment="Left" Margin="620,217,0,0" TextWrapping="Wrap" Text="Book Publisher" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="txtIsbn" HorizontalAlignment="Left" Margin="620,249,0,0" TextWrapping="Wrap" Text="Book ISBN # " VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="txtCategory" HorizontalAlignment="Left" Margin="620,281,0,0" TextWrapping="Wrap" Text="Book Category" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="btnReturn" Content="Return" HorizontalAlignment="Left" Margin="498,319,0,0" VerticalAlignment="Top" Width="77" Background="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" Click="btnReturn_Click"/>
         <Label x:Name="lblTest" Content="Label" HorizontalAlignment="Left" Margin="20,79,0,0" VerticalAlignment="Top" Foreground="#FFF9F6F6" Width="85"/>
-        <TextBox x:Name="txtLibraryCard" HorizontalAlignment="Left" Margin="620,320,0,0" TextWrapping="Wrap" Text="Library card # " VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="txtLibraryCard" HorizontalAlignment="Left" Margin="620,319,0,0" TextWrapping="Wrap" Text="Library card # " VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="btnReserve" Content="Reserve book" HorizontalAlignment="Left" Margin="620,367,0,0" VerticalAlignment="Top" Width="77" Background="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
 
 
     </Grid>

@@ -19,12 +19,22 @@ namespace WpfApp1
 
         public String librarycard { get; set; }
 
-        public String numberofbookscheckedout { get; set; }
-        
-        public String bookscheckedout { get; set; }
+        public List<CheckedOutBooks> bookscheckedout { get; set; }
 
-        public String duedate { get; set; }
+        public int numberofbookscheckedout => bookscheckedout.Count;
 
+
+
+
+    }
+
+    public class CheckedOutBooks
+    {
+        public String Title { get; set; }
+
+        public string duebackdate { get; set; }
+
+        public string checkedoutdate { get; set; }
 
     }
 }

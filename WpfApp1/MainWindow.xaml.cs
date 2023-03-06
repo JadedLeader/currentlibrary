@@ -33,58 +33,59 @@ namespace WpfApp1
             InitializeComponent();
         }
 
-        
+
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
 
             string path = "AccountDetails.xml";
 
-            XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.Load(path);
+            XDocument doc = XDocument.Load(path);
 
-            XmlNodeList nodelist = xmlDoc.DocumentElement.SelectNodes("/accounts/user");
+                var singleuser = doc.Root.Elements("user")
+                .SingleOrDefault(x => x.Element("username").Value == txtUsernameInput.Text && x.Element("password").Value == txtPasswordInput.Text);
 
-            foreach (XmlNode node in nodelist)
+            if(singleuser == null)
             {
-                //to get the values of nodes within the user node
-                XmlNode username = node.SelectSingleNode("username");
-                XmlNode password = node.SelectSingleNode("password");
-
-                if (txtUsernameInput.Text == username.InnerText && txtPasswordInput.Text == password.InnerText)
+                MessageBox.Show("not found");
+            }
+            else
+            {
+                _global.UserCurrent = new Accounts
                 {
-                    _global.UserCurrent = new Accounts
-                    {
-                        username = username.InnerText,
-                        password = password.InnerText,
-                        email = node.SelectSingleNode("email").InnerText,
-                        PhoneNumber = node.SelectSingleNode("PhoneNumber").InnerText,
-                        librarycard = node.SelectSingleNode("LibraryCard").InnerText,
-                        numberofbookscheckedout = node.SelectSingleNode("NumberOfBooksCheckedOut").InnerText,
-                        bookscheckedout = node.SelectSingleNode("BooksCheckedOut").InnerText,
-                        duedate = node.SelectSingleNode("DueDate").InnerText, 
+                    username = singleuser.Element("username").Value,
+                    password = singleuser.Element("password").Value,
+                    email = singleuser.Element("email").Value,
+                    PhoneNumber = singleuser.Element("PhoneNumber").Value, 
+                    librarycard = singleuser.Element("LibraryCard").Value,
 
+                    //talk to john about this part, breaks for some reason
+                 /*   bookscheckedout = singleuser.Element("BooksCheckedOut").Elements().Select(x => 
+                        new CheckedOutBooks 
+                        {
+                            Title = x.Element("Title").Value, 
+                            checkedoutdate = x.Element("checkedoutdate").Value, 
+                            duebackdate = x.Element("duebackdate").Value
+                        }).ToList(), */
+                };
 
-                    };
+                BookHomePage home = new BookHomePage(_global);
 
-                    BookHomePage home = new BookHomePage(_global);
+                home.Show();
 
-                    home.Show();
+                this.Hide();
 
-                    this.Hide();
-
-                    MessageBox.Show("username and password are within the file");
-
-                    
-
-                }
+                MessageBox.Show("username and password are within the file");
             }
 
-
-
-
-
         }
+
+
+
+
+
+
+    
 
         private void btnSignup_Click(object sender, RoutedEventArgs e)
         {
