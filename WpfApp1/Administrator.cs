@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace WpfApp1
 {
-    public class Global
+    public class Administrator
     {
-        public Accounts UserCurrent { get; set; }
 
-        public Administrator AdminCurrent { get; set; }
+        public String AdminUsername { get; set; }
+        public String AdminPassword { get; set; }
     }
 }

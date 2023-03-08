@@ -25,10 +25,13 @@ namespace WpfApp1
     public partial class MainWindow : Window
     {
         private Global _global;
+        private Administrator administrator;
 
         public MainWindow()
         {
             _global = new Global();
+
+            administrator = new Administrator();
 
             InitializeComponent();
         }
@@ -37,7 +40,8 @@ namespace WpfApp1
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-
+            //admin path for the admin file
+            string Administrator = "AdminDetails.xml";
             string path = "AccountDetails.xml";
 
             XDocument doc = XDocument.Load(path);
@@ -47,7 +51,33 @@ namespace WpfApp1
 
             if(singleuser == null)
             {
-                MessageBox.Show("not found");
+                
+
+                XDocument xdoc = XDocument.Load(Administrator);
+
+                var adminuser = xdoc.Root.Elements("admins")
+                    .SingleOrDefault(x => x.Element("username").Value == txtUsernameInput.Text && x.Element("password").Value == txtPasswordInput.Text);
+
+                if (adminuser == null)
+                {
+                    MessageBox.Show("Couldn't find the admin details");
+                }
+                else
+                {
+                    _global.AdminCurrent = new Administrator
+                    {
+                        AdminUsername = adminuser.Element("username").Value,
+                        AdminPassword = adminuser.Element("password").Value,
+                    };
+
+                    MessageBox.Show("admin login registered");
+
+                    AdminHome home = new AdminHome(_global);
+
+                    home.Show();
+
+                    this.Hide();
+                }
             }
             else
             {
@@ -59,14 +89,15 @@ namespace WpfApp1
                     PhoneNumber = singleuser.Element("PhoneNumber").Value, 
                     librarycard = singleuser.Element("LibraryCard").Value,
 
-                    //talk to john about this part, breaks for some reason
-                 /*   bookscheckedout = singleuser.Element("BooksCheckedOut").Elements().Select(x => 
+                    //this is populating the variables we have saved in the "Accounts" class to be used for later use
+                    
+                    bookscheckedout = singleuser.Element("BooksCheckedOut").Elements().Select(x => 
                         new CheckedOutBooks 
                         {
-                            Title = x.Element("Title").Value, 
-                            checkedoutdate = x.Element("checkedoutdate").Value, 
-                            duebackdate = x.Element("duebackdate").Value
-                        }).ToList(), */
+                            Title = x.Element("BookCheckedOut").Value, 
+                            checkedoutdate = x.Element("DateCheckedOut").Value, 
+                            duebackdate = x.Element("DueDate").Value
+                        }).ToList(), 
                 };
 
                 BookHomePage home = new BookHomePage(_global);
@@ -77,6 +108,10 @@ namespace WpfApp1
 
                 MessageBox.Show("username and password are within the file");
             }
+
+            
+
+
 
         }
 
@@ -98,13 +133,17 @@ namespace WpfApp1
 
         private void btnAdmins_Click(object sender, RoutedEventArgs e)
         {
-            AdminHome admin = new AdminHome(); 
+            AdminHome admin = new AdminHome(_global); 
 
             admin.Show();
 
             this.Close();
         }
 
-        
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            txtUsernameInput.Clear();
+            txtPasswordInput.Clear();
+        }
     }
 }

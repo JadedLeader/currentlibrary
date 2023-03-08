@@ -29,8 +29,8 @@
             <Image Source="/imagelogo.png"/>
         </Button>
         <Label Content="Filter:" HorizontalAlignment="Left" Margin="593,46,0,0" VerticalAlignment="Top" Width="53" Foreground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
-        <DataGrid x:Name="dtgBooksShowing" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="20,119,382,74" SelectionChanged="dtgBooksShowing_SelectionChanged"/>
-        <Button x:Name="btnCheckout" Content="Checkout" HorizontalAlignment="Left" Margin="503,367,0,0" VerticalAlignment="Top" Width="74" RenderTransformOrigin="0.5,0.5" Click="btnCheckout_Click" Background="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}">
+        <DataGrid x:Name="dtgBooksShowing" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="20,146,382,47" SelectionChanged="dtgBooksShowing_SelectionChanged"/>
+        <Button x:Name="btnCheckout" Content="Checkout" HorizontalAlignment="Left" Margin="517,392,0,0" VerticalAlignment="Top" Width="74" RenderTransformOrigin="0.5,0.5" Click="btnCheckout_Click" Background="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}">
             <Button.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -40,16 +40,19 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
-        <TextBox x:Name="txtTitle" HorizontalAlignment="Left" Margin="620,128,0,0" TextWrapping="Wrap" Text="Book Title" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="txtAuthor" HorizontalAlignment="Left" Margin="620,159,0,0" TextWrapping="Wrap" Text="Book Author" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="txtYear" HorizontalAlignment="Left" Margin="620,190,0,0" TextWrapping="Wrap" Text="Book Year" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="txtPublisher" HorizontalAlignment="Left" Margin="620,217,0,0" TextWrapping="Wrap" Text="Book Publisher" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="txtIsbn" HorizontalAlignment="Left" Margin="620,249,0,0" TextWrapping="Wrap" Text="Book ISBN # " VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="txtCategory" HorizontalAlignment="Left" Margin="620,281,0,0" TextWrapping="Wrap" Text="Book Category" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="btnReturn" Content="Return" HorizontalAlignment="Left" Margin="498,319,0,0" VerticalAlignment="Top" Width="77" Background="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" Click="btnReturn_Click"/>
+        <TextBox x:Name="txtTitle" HorizontalAlignment="Left" Margin="620,144,0,0" TextWrapping="Wrap" Text="Book Title" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="txtAuthor" HorizontalAlignment="Left" Margin="620,174,0,0" TextWrapping="Wrap" Text="Book Author" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="txtYear" HorizontalAlignment="Left" Margin="620,204,0,0" TextWrapping="Wrap" Text="Book Year" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="txtPublisher" HorizontalAlignment="Left" Margin="620,234,0,0" TextWrapping="Wrap" Text="Book Publisher" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="txtIsbn" HorizontalAlignment="Left" Margin="620,264,0,0" TextWrapping="Wrap" Text="Book ISBN # " VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="txtCategory" HorizontalAlignment="Left" Margin="620,294,0,0" TextWrapping="Wrap" Text="Book Category" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="btnReturn" Content="Return" HorizontalAlignment="Left" Margin="603,392,0,0" VerticalAlignment="Top" Width="77" Background="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" Click="btnReturn_Click"/>
         <Label x:Name="lblTest" Content="Label" HorizontalAlignment="Left" Margin="20,79,0,0" VerticalAlignment="Top" Foreground="#FFF9F6F6" Width="85"/>
-        <TextBox x:Name="txtLibraryCard" HorizontalAlignment="Left" Margin="620,319,0,0" TextWrapping="Wrap" Text="Library card # " VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="btnReserve" Content="Reserve book" HorizontalAlignment="Left" Margin="620,367,0,0" VerticalAlignment="Top" Width="77" Background="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
+        <TextBox x:Name="txtLibraryCard" HorizontalAlignment="Left" Margin="620,324,0,0" TextWrapping="Wrap" Text="Library card # " VerticalAlignment="Top" Width="120" TextChanged="txtLibraryCard_TextChanged"/>
+        <Button x:Name="btnReserve" Content="Reserve book" HorizontalAlignment="Left" Margin="691,392,0,0" VerticalAlignment="Top" Width="77" Background="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
+        <ComboBox HorizontalAlignment="Left" Margin="658,49,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Select a book" HorizontalAlignment="Left" Margin="176,110,0,0" VerticalAlignment="Top" Width="86" Foreground="White"/>
+        <Label Content="Book details:" HorizontalAlignment="Left" Margin="637,110,0,0" VerticalAlignment="Top" Width="86" Foreground="White"/>
 
 
     </Grid>

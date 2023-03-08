@@ -56,9 +56,13 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Accounts.cs" />
+    <Compile Include="AdminCreation.xaml.cs">
+      <DependentUpon>AdminCreation.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AdminHome.xaml.cs">
       <DependentUpon>AdminHome.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Administrator.cs" />
     <Compile Include="AdminRemoveBook.xaml.cs">
       <DependentUpon>AdminRemoveBook.xaml</DependentUpon>
     </Compile>
@@ -83,6 +87,10 @@
       <DependentUpon>SignupPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="xmlController.cs" />
+    <Page Include="AdminCreation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AdminHome.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

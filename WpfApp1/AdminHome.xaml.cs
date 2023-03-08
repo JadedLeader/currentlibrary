@@ -20,7 +20,10 @@ namespace WpfApp1
     /// </summary>
     public partial class AdminHome : Window
     {
-        public AdminHome()
+
+        private Global _global;
+        public String adminusername;
+        public AdminHome(Global global)
         {
             InitializeComponent();
 
@@ -29,6 +32,12 @@ namespace WpfApp1
             data.ReadXml(@"AccountDetails.xml");
 
             dtgUserList.ItemsSource = data.Tables[0].DefaultView;
+            
+            _global = global;
+
+            adminusername = _global.AdminCurrent.AdminUsername;   
+
+            lblAdminName.Content = adminusername;
         }
 
         private void btnAddBookScreen_Click(object sender, RoutedEventArgs e)
@@ -65,6 +74,15 @@ namespace WpfApp1
             remove.Show();
 
             this.Hide(); 
+        }
+
+        private void btnCreatingNewAdmin_Click(object sender, RoutedEventArgs e)
+        {
+            AdminCreation adminCreation = new AdminCreation();
+
+            adminCreation.Show();
+
+            this.Hide();
         }
     }
 }

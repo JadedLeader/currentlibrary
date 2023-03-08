@@ -32,8 +32,11 @@ namespace WpfApp1
         public String Username;
 
         public string counter;
-        public BookHomePage(Global global )
+        public BookHomePage(Global global)
         {
+
+            
+
             InitializeComponent();
             
 
@@ -50,6 +53,10 @@ namespace WpfApp1
             Username = _global.UserCurrent.username;
 
             lblTest.Content = Username;
+
+            btnCheckout.IsEnabled = false;
+            btnReturn.IsEnabled = false;
+            btnReserve.IsEnabled = false;
             
         }
 
@@ -83,6 +90,8 @@ namespace WpfApp1
     
             add a month to the due date of when the book was checked out  */
 
+            
+
             //loading the file
              XDocument doc = XDocument.Load(account);
 
@@ -103,7 +112,7 @@ namespace WpfApp1
                 if(singleUser.Element("BooksCheckedOut").Elements("book").Count() >= 6)
                 {
                     //showing the user a message if the book limit has been reached
-                    MessageBox.Show("Current limit reached");
+                    MessageBox.Show("Current book limit has been reached");
 
                     return;
                 }
@@ -165,6 +174,66 @@ namespace WpfApp1
 
             /* if library card is number is valid then we want to go to the book node where it has the title of the book
                we then want to delete all of the things under that book node, book checked out, date checked out and due date */
+
+            XDocument xdoc = XDocument.Load(account);
+
+            var loading = xdoc.Root.Elements("user")
+                .SingleOrDefault(x => x.Element("username").Value == Username && x.Element("LibraryCard").Value == txtLibraryCard.Text); 
+
+            if(loading == null)
+            {
+                MessageBox.Show("couldn't find anything of this type");
+            }
+            else
+            {
+                //this is where we want to do all of our actual code - we want to delete book checked out, date checked out and due date depending on the title of the book 
+
+                DeleteBook(txtTitle.Text, loading);
+
+              
+
+                MessageBox.Show("Book has has been returned");
+                
+
+            }
+
+
+
+
+
+                
+        }
+        
+        //passing the loading from the previous xdoc since it copies over the filtering we've already done into the function
+
+        public void DeleteBook(string title, XElement usercollection)
+        {
+            
+
+            var booktodelete = usercollection.Descendants("book")
+                .Where(x => x.Element("BookCheckedOut").Value == title);
+                
+            booktodelete.Remove();
+
+            usercollection.Document.Save(account);
+            
+        }
+
+        private void txtLibraryCard_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if(txtLibraryCard.Text == " ")
+            {
+                btnCheckout.IsEnabled = false; 
+                btnReserve.IsEnabled = false;
+                btnReturn.IsEnabled = false;
+            }
+            else
+            {
+                btnCheckout.IsEnabled = true;
+                //reserve must go here
+
+                btnReturn.IsEnabled = true;
+            }
         }
     }
 }

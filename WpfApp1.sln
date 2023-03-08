@@ -8,6 +8,16 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D3684EC0-4FE9-4E57-AD05-2320CE4B0F8A}"
 	ProjectSection(SolutionItems) = preProject
 		WpfApp1\bin\Debug\AccountDetails.xml = WpfApp1\bin\Debug\AccountDetails.xml
+		WpfApp1\bin\Debug\AdminDetails.xml = WpfApp1\bin\Debug\AdminDetails.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Classes", "Classes", "{FC096E8B-110C-462E-91A5-BC906BB23BF5}"
+	ProjectSection(SolutionItems) = preProject
+		WpfApp1\Accounts.cs = WpfApp1\Accounts.cs
+		WpfApp1\Administrator.cs = WpfApp1\Administrator.cs
+		WpfApp1\Books.cs = WpfApp1\Books.cs
+		WpfApp1\Global.cs = WpfApp1\Global.cs
+		WpfApp1\xmlController.cs = WpfApp1\xmlController.cs
 	EndProjectSection
 EndProject
 Global

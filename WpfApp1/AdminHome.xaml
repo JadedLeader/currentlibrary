@@ -13,15 +13,18 @@
                 <GradientStop Color="#FF171A21" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Button x:Name="btnAddBookScreen" Content="Add book" HorizontalAlignment="Left" Margin="19,70,0,0" VerticalAlignment="Top" Width="106" Click="btnAddBookScreen_Click" Background="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
-        <Button x:Name="btnRemoveBook" Content="Remove book" HorizontalAlignment="Left" Margin="19,108,0,0" VerticalAlignment="Top" Width="106" Background="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" Click="btnRemoveBook_Click"/>
-        <Button x:Name="btnUpdateBook" Content="Update book" HorizontalAlignment="Left" Margin="19,146,0,0" VerticalAlignment="Top" Width="106" Click="btnUpdateBook_Click" Background="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
+        <Button x:Name="btnAddBookScreen" Content="Add book" HorizontalAlignment="Left" Margin="19,172,0,0" VerticalAlignment="Top" Width="106" Click="btnAddBookScreen_Click" Background="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
+        <Button x:Name="btnRemoveBook" Content="Remove book" HorizontalAlignment="Left" Margin="19,217,0,0" VerticalAlignment="Top" Width="106" Background="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" Click="btnRemoveBook_Click"/>
+        <Button x:Name="btnUpdateBook" Content="Update book" HorizontalAlignment="Left" Margin="19,262,0,0" VerticalAlignment="Top" Width="106" Click="btnUpdateBook_Click" Background="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
         <Label Content="Administrator management " HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Foreground="#FFFFFEFE" FontSize="20" FontWeight="Bold"/>
-        <DataGrid x:Name="dtgUserList" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="262,90,56,21"/>
-        <Border BorderBrush="White" BorderThickness="1" Margin="0,0,0,369"/>
-        <Border BorderBrush="White" BorderThickness="1" Margin="0,0,656,0"/>
-        <Label Content="Options:" HorizontalAlignment="Left" Margin="28,10,0,0" VerticalAlignment="Top" Width="60" Foreground="#FFFBF8F8"/>
-        <Button x:Name="btnRemoveUser" Content="Remove Member" HorizontalAlignment="Left" Margin="20,184,0,0" VerticalAlignment="Top" Width="105" Background="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" Click="btnRemoveUser_Click"/>
+        <DataGrid x:Name="dtgUserList" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="229,100,89,11"/>
+        <Border BorderBrush="Gray" BorderThickness="1" Margin="0,0,0,369"/>
+        <Border BorderBrush="Gray" BorderThickness="1" Margin="0,0,656,0"/>
+        <Label Content="Options:" HorizontalAlignment="Left" Margin="42,100,0,0" VerticalAlignment="Top" Width="60" Foreground="#FFFBF8F8"/>
+        <Button x:Name="btnRemoveUser" Content="Remove Member" HorizontalAlignment="Left" Margin="19,312,0,0" VerticalAlignment="Top" Width="105" Background="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" Click="btnRemoveUser_Click"/>
+        <Label Content="Current users logged in" HorizontalAlignment="Center" Margin="0,70,0,0" VerticalAlignment="Top" Foreground="#FFFDFCFC" FontSize="15"/>
+        <Label x:Name="lblAdminName" Content="Label" HorizontalAlignment="Left" Margin="19,20,0,0" VerticalAlignment="Top" Width="105" Foreground="#FFF9F5F5"/>
+        <Button x:Name="btnCreatingNewAdmin" Content="Create admin" HorizontalAlignment="Left" Margin="19,354,0,0" VerticalAlignment="Top" Width="105" Background="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" Click="btnCreatingNewAdmin_Click"/>
 
     </Grid>
 </Window>
