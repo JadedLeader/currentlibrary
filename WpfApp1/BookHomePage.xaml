@@ -11,10 +11,9 @@
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="Black"/>
-                <GradientStop Color="#FF171A21" Offset="1"/>
+                <GradientStop Color="#FF2A475E" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <TextBox x:Name="txtSearchBar" HorizontalAlignment="Left" Margin="229,42,0,0" TextWrapping="Wrap" Text="Search" VerticalAlignment="Top" Width="203" Height="28" FontSize="20" TextChanged="txtSearchBar_TextChanged"/>
         <Button x:Name="btnSearch" Content="Search" HorizontalAlignment="Left" Margin="498,50,0,0" VerticalAlignment="Top" Width="53" RenderTransformOrigin="0.5,0.5" Background="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}">
             <Button.RenderTransform>
                 <TransformGroup>
@@ -50,9 +49,15 @@
         <Label x:Name="lblTest" Content="Label" HorizontalAlignment="Left" Margin="20,79,0,0" VerticalAlignment="Top" Foreground="#FFF9F6F6" Width="85"/>
         <TextBox x:Name="txtLibraryCard" HorizontalAlignment="Left" Margin="620,324,0,0" TextWrapping="Wrap" Text="Library card # " VerticalAlignment="Top" Width="120" TextChanged="txtLibraryCard_TextChanged"/>
         <Button x:Name="btnReserve" Content="Reserve book" HorizontalAlignment="Left" Margin="691,392,0,0" VerticalAlignment="Top" Width="77" Background="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
-        <ComboBox HorizontalAlignment="Left" Margin="658,49,0,0" VerticalAlignment="Top" Width="120"/>
+        <ComboBox HorizontalAlignment="Left" Margin="658,49,0,0" VerticalAlignment="Top" Width="120" IsDropDownOpen="True" IsEditable="True">
+            <ComboBoxItem Content="Author"/>
+            <ComboBoxItem Content="Title"/>
+            <ComboBoxItem Content="ISBN"/>
+        </ComboBox>
         <Label Content="Select a book" HorizontalAlignment="Left" Margin="176,110,0,0" VerticalAlignment="Top" Width="86" Foreground="White"/>
         <Label Content="Book details:" HorizontalAlignment="Left" Margin="637,110,0,0" VerticalAlignment="Top" Width="86" Foreground="White"/>
+        <TextBox x:Name="txtSearch" HorizontalAlignment="Left" Margin="205,42,0,0" TextWrapping="Wrap" Text="Search:" VerticalAlignment="Top" Width="195" Height="28" FontSize="17" Background="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
+
 
 
     </Grid>

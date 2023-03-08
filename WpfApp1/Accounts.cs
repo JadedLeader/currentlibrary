@@ -36,5 +36,7 @@ namespace WpfApp1
 
         public string checkedoutdate { get; set; }
 
+        public string bookstatus { get; set; }
+
     }
 }

@@ -96,7 +96,9 @@ namespace WpfApp1
                         {
                             Title = x.Element("BookCheckedOut").Value, 
                             checkedoutdate = x.Element("DateCheckedOut").Value, 
-                            duebackdate = x.Element("DueDate").Value
+                            duebackdate = x.Element("DueDate").Value,
+                            bookstatus = x.Element("status").Value,
+
                         }).ToList(), 
                 };
 

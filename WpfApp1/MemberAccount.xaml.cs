@@ -36,19 +36,13 @@ namespace WpfApp1
 
             //when the page loads up we want to filter by the username that they logged in with then initiliase a data grid with that info
 
-            XDocument xdoc = XDocument.Load(path);
+            DataSet data = new DataSet();
 
-            var filtering = xdoc.Descendants("user")
-                .SingleOrDefault(x => x.Element("username").Value == Username);
+            data.ReadXml(path);
 
-            if(filtering != null)
-            {
-                DataSet ds = new DataSet();
+            dtgMemberAccount.ItemsSource = data.Tables[0].DefaultView;
 
-                ds.ReadXml(path);
-
-                dtgMemberAccount.ItemsSource = ds.Tables[0].DefaultView;
-            }
+            //worst comes to worst if you can't get the data grid view to work to show you the books a user currently has checked out just filter the file using xdoc and put it in a txt box/block
 
 
         }

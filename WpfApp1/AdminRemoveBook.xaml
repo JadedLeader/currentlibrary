@@ -10,14 +10,16 @@
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="Black"/>
-                <GradientStop Color="#FF171A21" Offset="1"/>
+                <GradientStop Color="#FF2A475E" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Label Content="Book removal " HorizontalAlignment="Center" Margin="0,20,0,0" VerticalAlignment="Top" Foreground="#FFFFFEFE" FontSize="20" FontWeight="Bold"/>
+        <Label Content="Book removal " HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Foreground="#FFFFFEFE" FontSize="20" FontWeight="Bold"/>
         <DataGrid x:Name="dtgBookRemoval" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,76,281,37"/>
-        <Button x:Name="btnRemove" Content="Remove" HorizontalAlignment="Left" Margin="569,318,0,0" VerticalAlignment="Top" Width="58" Click="btnRemove_Click"/>
-        <Button x:Name="btnRefresh" Content="Refresh" HorizontalAlignment="Left" Margin="657,318,0,0" VerticalAlignment="Top" Width="58" Click="btnRefresh_Click"/>
-        <TextBox x:Name="txtTitle" HorizontalAlignment="Left" Margin="569,76,0,0" TextWrapping="Wrap" Text="Title" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="btnRemove" Content="Remove" HorizontalAlignment="Left" Margin="571,159,0,0" VerticalAlignment="Top" Width="58" Click="btnRemove_Click" Background="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
+        <Button x:Name="btnRefresh" Content="Refresh" HorizontalAlignment="Left" Margin="697,159,0,0" VerticalAlignment="Top" Width="58" Click="btnRefresh_Click"/>
+        <TextBox x:Name="txtTitle" HorizontalAlignment="Left" Margin="603,99,0,0" TextWrapping="Wrap" Text="Title" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Current books" HorizontalAlignment="Left" Margin="222,45,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="Title of book to delete:" HorizontalAlignment="Left" Margin="598,45,0,0" VerticalAlignment="Top" Foreground="White"/>
 
     </Grid>
 </Window>

@@ -31,6 +31,9 @@ namespace WpfApp1
         private Global _global;
         public String Username;
 
+        public string bookreturned = "Returned";
+        public string bookout = "CheckedOut";
+
         public string counter;
         public BookHomePage(Global global)
         {
@@ -119,13 +122,14 @@ namespace WpfApp1
 
                 //name of the element, contents of the element
                 DateTime date = DateTime.Now;
-                
+
                 //adding a books checked out head element, making a blank sub directory of book, populating it with everything 
                 singleUser.Element("BooksCheckedOut").Add(
-                    new XElement("book", 
-                        new XElement("BookCheckedOut", txtTitle.Text), 
-                        new XElement("DateCheckedOut", date.ToShortDateString()), 
-                        new XElement("DueDate", date.AddMonths(1).ToShortDateString())));
+                    new XElement("book",
+                        new XElement("BookCheckedOut", txtTitle.Text),
+                        new XElement("DateCheckedOut", date.ToShortDateString()),
+                        new XElement("DueDate", date.AddMonths(1).ToShortDateString()),
+                        new XElement("status", bookout)));
 
                 //savign the file
                 singleUser.Document.Save(account);
@@ -188,7 +192,9 @@ namespace WpfApp1
             {
                 //this is where we want to do all of our actual code - we want to delete book checked out, date checked out and due date depending on the title of the book 
 
-                DeleteBook(txtTitle.Text, loading);
+                //DeleteBook(txtTitle.Text, loading);
+
+                UpdatingBookReturn(loading, txtTitle.Text); 
 
               
 
@@ -219,6 +225,34 @@ namespace WpfApp1
             
         }
 
+        public void UpdatingBookReturn(XElement bookreturn, string title)
+        {
+
+            //we need to use the loading in btn return since that's already filtering by account 
+
+            //we then have to find the descendants of "book" 
+
+            //where status.value == checked out 
+
+            //then we change it to Returned
+
+            var bookupdated = bookreturn.Descendants("book")
+                .SingleOrDefault(x => x.Element("BookCheckedOut").Value == title && x.Element("status").Value == bookout);
+
+            bookupdated.Element("status").Value = bookreturned;
+
+            bookreturn.Document.Save(account);
+
+            
+
+            
+
+
+
+
+
+        }
+
         private void txtLibraryCard_TextChanged(object sender, TextChangedEventArgs e)
         {
             if(txtLibraryCard.Text == " ")
@@ -235,5 +269,7 @@ namespace WpfApp1
                 btnReturn.IsEnabled = true;
             }
         }
+
+        
     }
 }

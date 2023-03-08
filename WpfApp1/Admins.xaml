@@ -10,7 +10,7 @@
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="Black"/>
-                <GradientStop Color="#FF171A21" Offset="1"/>
+                <GradientStop Color="#FF2A475E" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
         <DataGrid x:Name="dtgCurrentBooks" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="24,91,345,50"/>
@@ -23,6 +23,8 @@
         <Button x:Name="btnAddBook" Content="add book" HorizontalAlignment="Left" Margin="552,334,0,0" VerticalAlignment="Top" Width="79" Click="btnAddBook_Click" Background="White"/>
         <Button x:Name="btnRefresh_" Content="Refresh" HorizontalAlignment="Left" Margin="706,334,0,0" VerticalAlignment="Top" Width="69" Click="btnRefresh__Click" Background="White"/>
         <Label Content="Admin screen" HorizontalAlignment="Center" Margin="0,27,0,0" VerticalAlignment="Top" Width="144" FontWeight="Bold" FontSize="20" Foreground="#FFFDFAFA"/>
+        <Label Content="New book details:" HorizontalAlignment="Left" Margin="610,59,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="Current books" HorizontalAlignment="Left" Margin="197,59,0,0" VerticalAlignment="Top" Foreground="White"/>
 
     </Grid>
 </Window>
