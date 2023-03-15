@@ -20,11 +20,12 @@
         <TextBox x:Name="txtPublisher" HorizontalAlignment="Left" Margin="601,218,0,0" TextWrapping="Wrap" Text="publisher" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="txtISBN" HorizontalAlignment="Left" Margin="601,258,0,0" TextWrapping="Wrap" Text="isbn" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="txtCategory" HorizontalAlignment="Left" Margin="601,295,0,0" TextWrapping="Wrap" Text="category" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="btnAddBook" Content="add book" HorizontalAlignment="Left" Margin="552,334,0,0" VerticalAlignment="Top" Width="79" Click="btnAddBook_Click" Background="White"/>
-        <Button x:Name="btnRefresh_" Content="Refresh" HorizontalAlignment="Left" Margin="706,334,0,0" VerticalAlignment="Top" Width="69" Click="btnRefresh__Click" Background="White"/>
+        <Button x:Name="btnAddBook" Content="add book" HorizontalAlignment="Left" Margin="548,364,0,0" VerticalAlignment="Top" Width="79" Click="btnAddBook_Click" Background="White"/>
+        <Button x:Name="btnRefresh_" Content="Refresh" HorizontalAlignment="Left" Margin="704,364,0,0" VerticalAlignment="Top" Width="69" Click="btnRefresh__Click" Background="White"/>
         <Label Content="Admin screen" HorizontalAlignment="Center" Margin="0,27,0,0" VerticalAlignment="Top" Width="144" FontWeight="Bold" FontSize="20" Foreground="#FFFDFAFA"/>
         <Label Content="New book details:" HorizontalAlignment="Left" Margin="610,59,0,0" VerticalAlignment="Top" Foreground="White"/>
         <Label Content="Current books" HorizontalAlignment="Left" Margin="197,59,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <TextBox x:Name="txtStock" HorizontalAlignment="Left" Margin="602,328,0,0" TextWrapping="Wrap" Text="stock amount" VerticalAlignment="Top" Width="120"/>
 
     </Grid>
 </Window>

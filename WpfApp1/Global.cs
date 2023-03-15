@@ -11,5 +11,7 @@ namespace WpfApp1
         public Accounts UserCurrent { get; set; }
 
         public Administrator AdminCurrent { get; set; }
+
+        public Books BookStock { get; set; }
     }
 }

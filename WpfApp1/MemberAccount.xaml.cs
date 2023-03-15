@@ -46,5 +46,23 @@ namespace WpfApp1
 
 
         }
+
+        private void btnLogout_Click(object sender, RoutedEventArgs e)
+        {
+            BookHomePage home = new BookHomePage(_global);
+
+            home.Show();
+
+            this.Hide();
+        }
+
+        private void btnCurrentBooksCheckedOut_Click(object sender, RoutedEventArgs e)
+        {
+            CheckedOutMembersBooks checkedOutMembersBooks = new CheckedOutMembersBooks(_global);
+
+            checkedOutMembersBooks.Show();
+
+            this.Hide();
+        }
     }
 }

@@ -21,6 +21,7 @@ namespace WpfApp1
 
         public string category { get; set; }
 
-        
+        public int stocks { get; set; }
+
     }
 }

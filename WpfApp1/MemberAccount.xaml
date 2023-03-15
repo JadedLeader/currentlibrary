@@ -14,8 +14,10 @@
             </LinearGradientBrush>
         </Grid.Background>
         <Label Content="Account overview" HorizontalAlignment="Center" Margin="0,25,0,0" VerticalAlignment="Top" Width="184" Foreground="#FFFBF4F4" FontSize="20" FontWeight="Bold"/>
-        <Button x:Name="btnCurrentBooksCheckedOut" Content="Checked out books" HorizontalAlignment="Left" Margin="10,119,0,0" VerticalAlignment="Top" Width="106" Height="19"/>
+        <Button x:Name="btnCurrentBooksCheckedOut" Content="Checked out books" HorizontalAlignment="Left" Margin="10,119,0,0" VerticalAlignment="Top" Width="106" Height="19" Background="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" Click="btnCurrentBooksCheckedOut_Click"/>
         <DataGrid x:Name="dtgMemberAccount" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="180,101,10,27"/>
+        <Label Content="Options:" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Button x:Name="btnLogout" Content="Home page" HorizontalAlignment="Left" Margin="10,388,0,0" VerticalAlignment="Top" Background="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" Width="106" Click="btnLogout_Click"/>
 
     </Grid>
 </Window>

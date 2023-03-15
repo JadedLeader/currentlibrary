@@ -76,6 +76,12 @@
       <DependentUpon>BookHomePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Books.cs" />
+    <Compile Include="CheckedOutMembersBooks.xaml.cs">
+      <DependentUpon>CheckedOutMembersBooks.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EditMember.xaml.cs">
+      <DependentUpon>EditMember.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Global.cs" />
     <Compile Include="MemberAccount.xaml.cs">
       <DependentUpon>MemberAccount.xaml</DependentUpon>
@@ -108,6 +114,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="BookHomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CheckedOutMembersBooks.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EditMember.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

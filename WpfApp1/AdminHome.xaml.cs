@@ -84,5 +84,23 @@ namespace WpfApp1
 
             this.Hide();
         }
+
+        private void btnCreateMember_Click(object sender, RoutedEventArgs e)
+        {
+            SignupPage signup = new SignupPage();
+
+            signup.Show();
+
+            this.Hide();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            EditMember editmember = new EditMember();
+
+            editmember.Show();
+
+            this.Hide();
+        }
     }
 }

@@ -1,0 +1,21 @@
+﻿<Window x:Class="WpfApp1.CheckedOutMembersBooks"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="CheckedOutMembersBooks" Height="450" Width="800">
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="Black"/>
+                <GradientStop Color="#FF2A475E" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Label Content="Checked out books" HorizontalAlignment="Center" Margin="0,27,0,0" VerticalAlignment="Top" Foreground="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" FontSize="20" FontWeight="Bold"/>
+        <Label Content="checked out books:" HorizontalAlignment="Center" Margin="0,98,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <TextBox x:Name="txtinfo_" HorizontalAlignment="Center" Margin="0,167,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="536" Height="188"/>
+
+    </Grid>
+</Window>

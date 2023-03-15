@@ -18,6 +18,9 @@ using System.Management.Instrumentation;
 using static System.Net.Mime.MediaTypeNames;
 using System.IO;
 using System.Xml.Linq;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Security.Cryptography.X509Certificates;
 
 namespace WpfApp1
 {
@@ -27,18 +30,24 @@ namespace WpfApp1
     public partial class BookHomePage : Window
     {
         string account = "AccountDetails.xml";
+        string library = "library.xml";
 
         private Global _global;
         public String Username;
 
+        
+
+        
+
         public string bookreturned = "Returned";
         public string bookout = "CheckedOut";
+        public string bookrenewed = "Renewed";
 
         public string counter;
         public BookHomePage(Global global)
         {
 
-            
+            _global = new Global();
 
             InitializeComponent();
             
@@ -55,11 +64,12 @@ namespace WpfApp1
 
             Username = _global.UserCurrent.username;
 
-            lblTest.Content = Username;
+            lblTest.Content = "Welcome: "  + Username;
 
             btnCheckout.IsEnabled = false;
             btnReturn.IsEnabled = false;
             btnReserve.IsEnabled = false;
+            
             
         }
 
@@ -194,9 +204,10 @@ namespace WpfApp1
 
                 //DeleteBook(txtTitle.Text, loading);
 
-                UpdatingBookReturn(loading, txtTitle.Text); 
+                UpdatingBookReturn(loading, txtTitle.Text);
 
-              
+                GrabbingLibraryStock(txtTitle.Text, _global);
+
 
                 MessageBox.Show("Book has has been returned");
                 
@@ -204,10 +215,10 @@ namespace WpfApp1
             }
 
 
+            
 
 
 
-                
         }
         
         //passing the loading from the previous xdoc since it copies over the filtering we've already done into the function
@@ -237,20 +248,55 @@ namespace WpfApp1
             //then we change it to Returned
 
             var bookupdated = bookreturn.Descendants("book")
-                .SingleOrDefault(x => x.Element("BookCheckedOut").Value == title && x.Element("status").Value == bookout);
+                .SingleOrDefault(x => x.Element("BookCheckedOut").Value == title && x.Element("status").Value != null);
 
             bookupdated.Element("status").Value = bookreturned;
+            bookupdated.Element("DueDate").Value = "Due date removed";
 
             bookreturn.Document.Save(account);
 
-            
+            //we then need to create a new method that grabs the stock value from the library.xml file
+        }
+
+        public void GrabbingLibraryStock(string title, Global globals)
+        {
+            //we're going to update the books stock by finding the book via the txttitle box, then we're going to find the stock value and decrease it
+            Books book = new Books();
+
+            _global = globals;
+
+            XDocument xdoc = XDocument.Load(library);
+
+            //string stonks = _global.BookStock.stocks.ToString();
+
+            var BookGrab = xdoc.Descendants("book")
+                .SingleOrDefault(x => x.Element("title").Value == title);
+
+            if(BookGrab == null)
+            {
+                MessageBox.Show("couldn't find the thing");
+            }
+            else
+            {
+                _global.BookStock = new Books
+                {
+                    stocks = Convert.ToInt32(BookGrab.Element("stock").Value),
+                };
+
+
+
+                BookGrab.Element("stock").Value = _global.BookStock.stocks--.ToString();
+
+                xdoc.Document.Save(library);
+
+                MessageBox.Show("stock updated");
+
+                
+            }
+
+      
 
             
-
-
-
-
-
         }
 
         private void txtLibraryCard_TextChanged(object sender, TextChangedEventArgs e)
@@ -260,16 +306,66 @@ namespace WpfApp1
                 btnCheckout.IsEnabled = false; 
                 btnReserve.IsEnabled = false;
                 btnReturn.IsEnabled = false;
+                btnRenew.IsEnabled = false;
             }
             else
             {
                 btnCheckout.IsEnabled = true;
                 //reserve must go here
-
+                //btnRenew.IsEnabled = true;
                 btnReturn.IsEnabled = true;
             }
         }
 
-        
+        private void btnLogout_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow main = new MainWindow();
+
+            main.Show();
+
+            this.Hide();
+        }
+
+        private void btnRenew_Click(object sender, RoutedEventArgs e)
+        {
+            //to be able to renew a book it must already be checked out, we need to filter by username and library card #, cant have a status of renewed or returned, due date must be increased by 2 weeks
+
+            XDocument xdoc = XDocument.Load(account);
+
+            var Renewal = xdoc.Descendants("user")
+                .SingleOrDefault(x => x.Element("username").Value == Username && x.Element("LibraryCard").Value == txtLibraryCard.Text);
+
+            if(Renewal == null)
+            {
+                MessageBox.Show("Sorry, nothing could be found of this type"); 
+            }
+            else
+            {
+                Renewingbook(txtTitle.Text, Renewal);
+            }
+        }
+
+        //this is a function that takes a string and the filter above as parameters and renews the book due date and status of the book
+        public void Renewingbook(string title, XElement renewalfilters)
+        {
+            DateTime date = DateTime.Now;
+
+            var renewingbook = renewalfilters.Descendants("book")
+                .SingleOrDefault(x => x.Element("status").Value == bookout && x.Element("BookCheckedOut").Value == title); 
+
+            if(renewingbook == null)
+            {
+                MessageBox.Show("We either found nothing on this result or you don't have a book checked out");
+            }
+            else
+            {
+                renewingbook.Element("DueDate").Value = date.AddDays(42).ToShortDateString();
+                renewingbook.Element("status").Value = bookrenewed;
+
+                renewalfilters.Document.Save(account);
+
+                MessageBox.Show("Book has been renewed");
+            }
+        }
     }
 }

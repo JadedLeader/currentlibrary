@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Reflection;
 using System.Security.Principal;
 using System.Text;
@@ -53,6 +54,7 @@ namespace WpfApp1
             XmlNode publisher = doc.CreateElement("publisher");
             XmlNode isbn = doc.CreateElement("isbn");
             XmlNode category = doc.CreateElement("category");
+            XmlNode stock = doc.CreateElement("stock");
 
             title.InnerText = newbook.title;
             author.InnerText = newbook.author;
@@ -60,6 +62,7 @@ namespace WpfApp1
             publisher.InnerText = newbook.publisher;
             isbn.InnerText = newbook.isbn;
             category.InnerText = newbook.category;
+            stock.InnerText = newbook.stocks.ToString();
 
             book.AppendChild(title);
             book.AppendChild(author);
@@ -67,6 +70,7 @@ namespace WpfApp1
             book.AppendChild(publisher);
             book.AppendChild(isbn);
             book.AppendChild(category);
+            book.AppendChild(stock);
 
             ROOT.AppendChild(book);
             doc.Save(path);
@@ -84,6 +88,21 @@ namespace WpfApp1
             oldVideo.ChildNodes.Item(4).InnerText = updatebook.isbn;
             oldVideo.ChildNodes.Item(5).InnerText = updatebook.category;
             doc.Save(path);
+        }
+
+        public void UpdatingMemberInfo(string Username, Accounts account)
+        {
+            XmlDocument doc = new XmlDocument();
+
+            doc.Load(paths);
+
+            XmlNode oldmember = doc.SelectSingleNode("//user[username='" + Username + "']");
+            oldmember.ChildNodes.Item(0).InnerText = account.username; 
+            oldmember.ChildNodes.Item(1).InnerText = account.password;
+            oldmember.ChildNodes.Item(2).InnerText = account.email;
+            oldmember.ChildNodes.Item(3).InnerText = account.PhoneNumber;
+            oldmember.ChildNodes.Item(4).InnerText = account.librarycard;
+            doc.Save(paths);
         }
 
         public void BookDelete(string title)
