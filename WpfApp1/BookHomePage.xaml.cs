@@ -109,14 +109,41 @@ namespace WpfApp1
                          }
 
                        }
-
-                        
-
-                        
                     }
                 }
 
             }
+
+            //creating functionality for letting the user know if a books due date is late
+
+            /*XDocument docx = XDocument.Load(account);
+
+            var overdue = docx.Descendants("user")
+                .SingleOrDefault(x => x.Element("username").Value == Username); 
+
+            if(overdue != null)
+            {
+                var datetimes = overdue.Descendants("book")
+                .Where(x => DateTime.Parse(x.Element("DueDate").Value) > DateTime.Now)
+                .Select(x => x.Element("DueDate")); 
+
+                if(datetimes != null)
+                {
+                    MessageBox.Show("There are no books that are overdue");
+                }
+                else
+                {
+                    foreach(var datetime in datetimes)
+                    {
+                        MessageBox.Show(datetime + "is currently overdue");
+                    }
+                    
+                     //THIS IS WHERE YOU'D HANDLE THE FINES FOR OVERDUE BOOKS
+                    //OVERDUE BOOKS HAVE A GRACE PERIOD OF 7 DAYS AND THEN EVERY WEEK AFTER THAT 1% OF THE TOTAL BOOK PRICE IS ADDED 
+                }
+
+                
+            } */
 
         }
 
