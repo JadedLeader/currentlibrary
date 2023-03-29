@@ -92,5 +92,18 @@ namespace WpfApp1
             dtgUpdateGrid.ItemsSource = dv;
             dtgUpdateGrid.Items.Refresh();
         }
+
+        private void dtgUpdateGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DataRowView row = dtgUpdateGrid.SelectedItem as DataRowView;
+
+            txtTitle.Text = row.Row.ItemArray[0].ToString();
+            txtAuthor.Text = row.Row.ItemArray[1].ToString();
+            txtYear.Text = row.Row.ItemArray[2].ToString();
+            txtPublisher.Text = row.Row.ItemArray[3].ToString();
+            txtISBN.Text = row.Row.ItemArray[4].ToString();
+            txtCategory.Text = row.Row.ItemArray[5].ToString();
+            
+        }
     }
 }

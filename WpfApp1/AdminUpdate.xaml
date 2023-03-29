@@ -13,7 +13,7 @@
                 <GradientStop Color="#FF2A475E" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <DataGrid x:Name="dtgUpdateGrid" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="21,134,278,10" IsReadOnly="True"/>
+        <DataGrid x:Name="dtgUpdateGrid" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="21,134,278,10" IsReadOnly="True" SelectionChanged="dtgUpdateGrid_SelectionChanged"/>
         <Button x:Name="btnUpdate" Content="Update" HorizontalAlignment="Left" Margin="569,347,0,0" VerticalAlignment="Top" Width="84" Click="btnUpdate_Click" Background="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
         <Button x:Name="btnRefresh" Content="Refresh" HorizontalAlignment="Left" Margin="693,347,0,0" VerticalAlignment="Top" Width="81" Click="btnRefresh_Click"/>
         <Label Content="Update Book" HorizontalAlignment="Left" Margin="383,10,0,0" VerticalAlignment="Top" Width="139" FontSize="20" FontWeight="Bold" Foreground="White"/>

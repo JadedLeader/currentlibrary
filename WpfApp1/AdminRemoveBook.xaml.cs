@@ -83,5 +83,12 @@ namespace WpfApp1
             dtgBookRemoval.ItemsSource = dv;
             dtgBookRemoval.Items.Refresh();
         }
+
+        private void dtgBookRemoval_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DataRowView row = dtgBookRemoval.SelectedItem as DataRowView;
+
+            txtTitle.Text = row.Row.ItemArray[0].ToString();
+        }
     }
 }

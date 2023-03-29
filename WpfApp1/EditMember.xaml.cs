@@ -92,5 +92,19 @@ namespace WpfApp1
             dtgMemberData.ItemsSource = dv;
             dtgMemberData.Items.Refresh(); */
         }
+
+        private void dtgMemberData_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+
+            DataRowView row = dtgMemberData.SelectedItem as DataRowView;
+
+            txtUsername.Text = row.Row.ItemArray[0].ToString();
+            txtPassword.Text = row.Row.ItemArray[1].ToString();
+            txtEmail.Text = row.Row.ItemArray[2].ToString();
+            txtPhoneNumber.Text = row.Row.ItemArray[3].ToString();
+            txtLibraryCard.Text = row.Row.ItemArray[4].ToString();
+
+        }
     }
 }

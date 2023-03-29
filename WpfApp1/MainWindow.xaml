@@ -22,14 +22,14 @@
         <TextBox x:Name="txtPasswordInput" Grid.Column="1" HorizontalAlignment="Left" Margin="157,166,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="237" FontSize="17" Height="27"/>
         <Button Grid.Column="1" Content="Button" HorizontalAlignment="Left" Margin="216,347,0,0" VerticalAlignment="Top" Width="0" Height="8"/>
         <Button x:Name="btnLogin" Grid.Column="1" Content="Login" HorizontalAlignment="Left" Margin="157,220,0,0" VerticalAlignment="Top" Width="93" Click="btnLogin_Click" Background="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
-        <Button x:Name="btnSignup" Grid.Column="1" Content="Signup" HorizontalAlignment="Left" Margin="248,297,0,0" VerticalAlignment="Top" Width="56" Height="24" Click="btnSignup_Click" Background="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
+        <Button x:Name="btnSignup" Grid.Column="1" Content="Signup" HorizontalAlignment="Left" Margin="248,297,0,0" VerticalAlignment="Top" Width="93" Height="19" Click="btnSignup_Click" Background="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
         <Label Grid.Column="1" Content="Login" HorizontalAlignment="Left" Margin="193,10,0,0" VerticalAlignment="Top" Width="80" FontSize="20" FontWeight="Bold" Foreground="White"/>
         <Label Grid.Column="1" Content="Username:" HorizontalAlignment="Left" Margin="73,109,0,0" VerticalAlignment="Top" Foreground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
         <Label Grid.Column="1" Content="Password:" HorizontalAlignment="Left" Margin="73,166,0,0" VerticalAlignment="Top" Foreground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
-        <Label Grid.Column="1" Content="Dont have an account?" HorizontalAlignment="Left" Margin="81,296,0,0" VerticalAlignment="Top" Width="135" Foreground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+        <Label Grid.Column="1" Content="Dont have an account?" HorizontalAlignment="Left" Margin="81,294,0,0" VerticalAlignment="Top" Width="135" Foreground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
         <Button x:Name="btnCancel" Grid.Column="1" Content="Cancel" HorizontalAlignment="Left" Margin="300,220,0,0" VerticalAlignment="Top" Width="94" Background="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" Click="btnCancel_Click"/>
-        <Label Grid.Column="1" Content="Forgotten your password? " HorizontalAlignment="Left" Margin="81,333,0,0" VerticalAlignment="Top" Width="152" Foreground="White"/>
-        <Button x:Name="btnForgottenPassword" Grid.Column="1" Content="Reset" HorizontalAlignment="Left" Margin="250,339,0,0" VerticalAlignment="Top" Width="56" Background="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" Click="btnForgottenPassword_Click"/>
+        <Label Grid.Column="1" Content="Forgotten your password? " HorizontalAlignment="Left" Margin="81,338,0,0" VerticalAlignment="Top" Width="152" Foreground="White"/>
+        <Button x:Name="btnForgottenPassword" Grid.Column="1" Content="Reset" HorizontalAlignment="Left" Margin="248,342,0,0" VerticalAlignment="Top" Width="93" Background="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" Click="btnForgottenPassword_Click" Height="18"/>
 
     </Grid>
 </Window>

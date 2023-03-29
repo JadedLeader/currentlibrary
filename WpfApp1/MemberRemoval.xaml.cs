@@ -84,5 +84,13 @@ namespace WpfApp1
             dtgMemberDetails.ItemsSource = dv;
             dtgMemberDetails.Items.Refresh(); */
         }
+
+        private void dtgMemberDetails_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DataRowView row = dtgMemberDetails.SelectedItem as DataRowView; 
+
+            txtMemberUsername.Text = row.Row.ItemArray[0].ToString();
+            
+        }
     }
 }

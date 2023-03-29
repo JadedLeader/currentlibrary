@@ -99,11 +99,18 @@ namespace WpfApp1
                     }
                     else
                     {
+                        
 
-                        foreach (var yummers in bookstockvalue)
-                        {
-                            lblReservedBooksStockReturn.Content += yummers.Value + "\n";
-                        }
+                       foreach (var books in bookstockvalue)
+                       {
+                         if (grabbingvalue.Any(x => x.Value == books.Value))
+                         {
+                                lblReservedBooksStockReturn.Content += books.Value + "\n";
+                         }
+
+                       }
+
+                        
 
                         
                     }

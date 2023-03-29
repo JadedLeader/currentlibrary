@@ -14,7 +14,7 @@
             </LinearGradientBrush>
         </Grid.Background>
         <Label Content="Member removal" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Foreground="White" FontSize="20" FontWeight="Bold"/>
-        <DataGrid x:Name="dtgMemberDetails" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,145,314,17" IsReadOnly="True"/>
+        <DataGrid x:Name="dtgMemberDetails" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,145,314,17" IsReadOnly="True" SelectionChanged="dtgMemberDetails_SelectionChanged"/>
         <TextBox x:Name="txtMemberUsername" HorizontalAlignment="Left" Margin="619,136,0,0" TextWrapping="Wrap" Text="username" VerticalAlignment="Top" Width="120"/>
         <Button x:Name="btnDeleteMember" Content="Delete Member" HorizontalAlignment="Left" Margin="573,334,0,0" VerticalAlignment="Top" Width="92" Click="btnDeleteMember_Click" Background="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
         <Button x:Name="btnRefresh" Content="Refresh" HorizontalAlignment="Left" Margin="698,334,0,0" VerticalAlignment="Top" Width="92" Click="btnRefresh_Click"/>
