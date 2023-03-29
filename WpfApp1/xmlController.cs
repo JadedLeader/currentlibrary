@@ -7,6 +7,8 @@ using System.Reflection;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
@@ -128,13 +130,16 @@ namespace WpfApp1
             doc.Save(paths);
         }
 
-       
+        internal List<CheckedOutBooks> Getuserscheckedoutbooks(string username)
+        {
+            XDocument doc = XDocument.Load(paths);
 
+            var singleuser = doc.Root.Elements("user")
+                .SingleOrDefault(x => x.Element("username").Value == username);
 
+            return singleuser.Descendants("book").Select(x => new CheckedOutBooks { Title = x.Element("BookCheckedOut").Value, duebackdate = x.Element("DueDate").Value, checkedoutdate = x.Element("DateCheckedOut").Value, bookstatus = x.Element("status").Value }).ToList();
 
-
-
-
-
+            
+        }
     }
 }

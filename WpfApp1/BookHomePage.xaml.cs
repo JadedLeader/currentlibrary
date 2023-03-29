@@ -21,6 +21,7 @@ using System.Xml.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
+using System.Runtime.Remoting.Messaging;
 
 namespace WpfApp1
 {
@@ -34,14 +35,12 @@ namespace WpfApp1
 
         private Global _global;
         public String Username;
-
-        
-
-        
+        public String Librarycard;
 
         public string bookreturned = "Returned";
         public string bookout = "CheckedOut";
         public string bookrenewed = "Renewed";
+        public string reserved = "Reserved";
 
         public string counter;
         public BookHomePage(Global global)
@@ -63,14 +62,55 @@ namespace WpfApp1
             _global = global;
 
             Username = _global.UserCurrent.username;
+            Librarycard = _global.UserCurrent.librarycard;
 
-            lblTest.Content = "Welcome: "  + Username;
+            lblTest.Content = "Welcome, "  + Username;
+            lblLibraryCardNum.Content = "Library Card # " +  Librarycard;
 
             btnCheckout.IsEnabled = false;
             btnReturn.IsEnabled = false;
-            btnReserve.IsEnabled = false;
-            
-            
+            //btnReserve.IsEnabled = false;
+            //btnRenew.IsEnabled = false; 
+
+            XDocument xdoc = XDocument.Load(account);
+
+            var grabbinginfo = xdoc.Descendants("user")
+                .SingleOrDefault(x => x.Element("username").Value == Username);
+
+            if (grabbinginfo != null)
+            {
+                var grabbingvalue = grabbinginfo.Descendants("book")
+                    .Where(x => x.Element("status").Value == "Reserved")
+                    .Select(x => x.Element("BookCheckedOut"));
+
+                if (grabbinginfo != null)
+                {
+                    XDocument thing = XDocument.Load(library);
+
+                    var bookstockvalue = thing.Descendants("book")
+                        .Where(x => x.Element("stock").Value == 1.ToString())
+                        .Select(x => x.Element("title"));
+
+                    if (bookstockvalue == null)
+                    {
+
+                        MessageBox.Show("This error'd somehow");
+
+                    }
+                    else
+                    {
+
+                        foreach (var yummers in bookstockvalue)
+                        {
+                            lblReservedBooksStockReturn.Content += yummers.Value + "\n";
+                        }
+
+                        
+                    }
+                }
+
+            }
+
         }
 
         private void btnUserProfile_Click(object sender, RoutedEventArgs e)
@@ -91,20 +131,7 @@ namespace WpfApp1
 
         private void btnCheckout_Click(object sender, RoutedEventArgs e)
         {
-            /* checking out a book:
-
-            search by the users username
-
-            get the descendants of the username
-
-            make sure that the library card # they entered is in the same child node as the username 
-
-            add the title of the book into the books checked out element
-    
-            add a month to the due date of when the book was checked out  */
-
-            
-
+           
             //loading the file
              XDocument doc = XDocument.Load(account);
 
@@ -121,30 +148,42 @@ namespace WpfApp1
             //grabbing the library card node, checkng it's value
             if (singleUser.Element("LibraryCard").Value == txtLibraryCard.Text)
             {
-               //going into the bookscheckedout node, grabbing the book element and counting the total # that are in there
-                if(singleUser.Element("BooksCheckedOut").Elements("book").Count() >= 6)
-                {
-                    //showing the user a message if the book limit has been reached
-                    MessageBox.Show("Current book limit has been reached");
 
-                    return;
+                XDocument docx = XDocument.Load(library);
+
+                var thing = docx.Descendants("book")
+                    .SingleOrDefault(x => x.Element("stock").Value == 0.ToString() && x.Element("title").Value == txtTitle.Text);
+
+                if (thing == null)
+                {
+                  
+
+                    //name of the element, contents of the element
+                    DateTime date = DateTime.Now;
+
+                    //adding a books checked out head element, making a blank sub directory of book, populating it with everything 
+                    singleUser.Element("BooksCheckedOut").Add(
+                        new XElement("book",
+                            new XElement("BookCheckedOut", txtTitle.Text),
+                            new XElement("DateCheckedOut", date.ToShortDateString()),
+                            new XElement("DueDate", date.AddMonths(1).ToShortDateString()),
+                            new XElement("status", bookout)));
+
+                    //savign the file
+                    singleUser.Document.Save(account);
+
+                    GrabbingLibraryStock(txtTitle.Text, _global);
+
+                    MessageBox.Show("Book has been checked out!");
+
+                    RemovingReservedbook(singleUser, txtTitle.Text);
+                }
+                else
+                {
+                    MessageBox.Show("This book currently has no stock, please try reserving");
                 }
 
-                //name of the element, contents of the element
-                DateTime date = DateTime.Now;
-
-                //adding a books checked out head element, making a blank sub directory of book, populating it with everything 
-                singleUser.Element("BooksCheckedOut").Add(
-                    new XElement("book",
-                        new XElement("BookCheckedOut", txtTitle.Text),
-                        new XElement("DateCheckedOut", date.ToShortDateString()),
-                        new XElement("DueDate", date.AddMonths(1).ToShortDateString()),
-                        new XElement("status", bookout)));
-
-                //savign the file
-                singleUser.Document.Save(account);
-
-                MessageBox.Show("Save complete");
+               
             }
             else
             {
@@ -152,13 +191,18 @@ namespace WpfApp1
             }
 
 
+        }
+       
+        private void RemovingReservedbook(XElement usercheck, string title)
+        {
+            var thing = usercheck.Descendants("book")
+                .Where(x => x.Element("status").Value == reserved && x.Element("BookCheckedOut").Value == title);
 
+            thing.Remove();
 
+            usercheck.Document.Save(account);
 
-
-
-
-
+            MessageBox.Show("Reserved book for this user has now been deleted since it's checked out");
         }
 
         private void dtgBooksShowing_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -196,7 +240,7 @@ namespace WpfApp1
 
             if(loading == null)
             {
-                MessageBox.Show("couldn't find anything of this type");
+                MessageBox.Show("We couldn't find any details that match this, please make sure you're inputting the correct details for your account!");
             }
             else
             {
@@ -206,8 +250,10 @@ namespace WpfApp1
 
                 UpdatingBookReturn(loading, txtTitle.Text);
 
-                GrabbingLibraryStock(txtTitle.Text, _global);
+                //grabbing library stock shouldn't be here since it decrements by 1 when it should increment when the book is handed back in
 
+                //GrabbingLibraryStock(txtTitle.Text, _global);
+                GrabbingLibraryStockIncrement(txtTitle.Text, _global);
 
                 MessageBox.Show("Book has has been returned");
                 
@@ -239,14 +285,6 @@ namespace WpfApp1
         public void UpdatingBookReturn(XElement bookreturn, string title)
         {
 
-            //we need to use the loading in btn return since that's already filtering by account 
-
-            //we then have to find the descendants of "book" 
-
-            //where status.value == checked out 
-
-            //then we change it to Returned
-
             var bookupdated = bookreturn.Descendants("book")
                 .SingleOrDefault(x => x.Element("BookCheckedOut").Value == title && x.Element("status").Value != null);
 
@@ -255,63 +293,79 @@ namespace WpfApp1
 
             bookreturn.Document.Save(account);
 
-            //we then need to create a new method that grabs the stock value from the library.xml file
+            
         }
 
         public void GrabbingLibraryStock(string title, Global globals)
         {
-            //we're going to update the books stock by finding the book via the txttitle box, then we're going to find the stock value and decrease it
+           
             Books book = new Books();
 
             _global = globals;
 
             XDocument xdoc = XDocument.Load(library);
 
-            //string stonks = _global.BookStock.stocks.ToString();
-
             var BookGrab = xdoc.Descendants("book")
                 .SingleOrDefault(x => x.Element("title").Value == title);
 
             if(BookGrab == null)
             {
-                MessageBox.Show("couldn't find the thing");
+                MessageBox.Show("We couldn't find this book, please try selecting a different one");
             }
             else
             {
-                _global.BookStock = new Books
-                {
-                    stocks = Convert.ToInt32(BookGrab.Element("stock").Value),
-                };
+                var stock = Convert.ToInt32(BookGrab.Element("stock").Value);
+                stock--;
 
+                BookGrab.Element("stock").Value = stock.ToString();
 
+                BookGrab.Document.Save(library);
 
-                BookGrab.Element("stock").Value = _global.BookStock.stocks--.ToString();
-
-                xdoc.Document.Save(library);
-
-                MessageBox.Show("stock updated");
-
-                
             }
 
-      
+        }
 
+        public void GrabbingLibraryStockIncrement(string title, Global globals)
+        {
             
+            Books book = new Books();
+
+            _global = globals;
+
+            XDocument xdoc = XDocument.Load(library);
+
+            var BookGrab = xdoc.Descendants("book")
+                .SingleOrDefault(x => x.Element("title").Value == title);
+
+            if (BookGrab == null)
+            {
+                MessageBox.Show("We couldn't find this book, please try selecting a different one");
+            }
+            else
+            {
+                var stock = Convert.ToInt32(BookGrab.Element("stock").Value);
+                stock++;
+
+                BookGrab.Element("stock").Value = stock.ToString();
+
+                BookGrab.Document.Save(library);
+            }
         }
 
         private void txtLibraryCard_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if(txtLibraryCard.Text == " ")
+            if(txtLibraryCard.Text == "")
             {
                 btnCheckout.IsEnabled = false; 
-                btnReserve.IsEnabled = false;
-                btnReturn.IsEnabled = false;
+               // btnReserve.IsEnabled = false;
+                //btnReturn.IsEnabled = false;
                 btnRenew.IsEnabled = false;
+                
             }
             else
             {
                 btnCheckout.IsEnabled = true;
-                //reserve must go here
+               // btnReserve.IsEnabled = true;
                 //btnRenew.IsEnabled = true;
                 btnReturn.IsEnabled = true;
             }
@@ -337,7 +391,7 @@ namespace WpfApp1
 
             if(Renewal == null)
             {
-                MessageBox.Show("Sorry, nothing could be found of this type"); 
+                MessageBox.Show("Sorry, we couldn't find a book under this name that's checked out on your account, make sure to checkout the book first!"); 
             }
             else
             {
@@ -350,6 +404,7 @@ namespace WpfApp1
         {
             DateTime date = DateTime.Now;
 
+            //this currently isn't working, says i have multiple copies of the same book 
             var renewingbook = renewalfilters.Descendants("book")
                 .SingleOrDefault(x => x.Element("status").Value == bookout && x.Element("BookCheckedOut").Value == title); 
 
@@ -366,6 +421,88 @@ namespace WpfApp1
 
                 MessageBox.Show("Book has been renewed");
             }
+        }
+
+        private void btnReserve_Click(object sender, RoutedEventArgs e)
+        {
+            //to reserve a book there must be 0 stock on the title of that book left, also have to check the username and library card # of the user that's logged in like usual
+
+            //for reserving a book we want to check the books stock value in the library file, make sure that the title in the text box is the same as the value 
+
+            XDocument doc = XDocument.Load(library);
+
+            var reservation = doc.Descendants("book")
+                .SingleOrDefault(x => x.Element("stock").Value == "0" && x.Element("title").Value == txtTitle.Text);
+
+            if(reservation == null)
+            {
+                MessageBox.Show("This book currently has stock, please checkout the book instead!");
+            }
+            else
+            {
+                DateTime date = DateTime.Now;
+
+                XDocument xdoc = XDocument.Load(account);
+
+                var userdetails = xdoc.Descendants("user")
+                    .SingleOrDefault(x => x.Element("username").Value == Username && x.Element("LibraryCard").Value == txtLibraryCard.Text);
+
+                if(userdetails == null)
+                {
+                    MessageBox.Show("These user details couldn't be found, please make sure that you're using the correct details for your account!");
+                }
+                else
+                {
+                    userdetails.Element("BooksCheckedOut").Add(
+                    new XElement("book",
+                        new XElement("BookCheckedOut", txtTitle.Text),
+                        new XElement("DateCheckedOut", "Not yet confirmed"),
+                        new XElement("DueDate", "Date to be confirmed"),
+                        new XElement("status", reserved)));
+                }
+
+                userdetails.Document.Save(account);
+
+                MessageBox.Show("Book has been reserved");
+            }
+
+         
+        }
+
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void btnRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            BookHomePage home = new BookHomePage(_global);
+
+            home.Show();
+
+            this.Hide();
+
+        }
+
+        private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            DataSet dataSet = new DataSet();
+            //Reads the XML file into the dataset
+            dataSet.ReadXml(library);
+            //Sets the datasource for the datagrid to be the dataset
+            dtgBooksShowing.ItemsSource = dataSet.Tables[0].DefaultView;
+
+            DataView dv = dataSet.Tables[0].DefaultView;
+
+            StringBuilder sb = new StringBuilder();
+            foreach (DataColumn column in dv.Table.Columns)
+            {
+                sb.AppendFormat("[{0}] Like '%{1}%' OR ", column.ColumnName, txtSearch.Text);
+            }
+            sb.Remove(sb.Length - 3, 3);
+            dv.RowFilter = sb.ToString();
+            dtgBooksShowing.ItemsSource = dv;
+            dtgBooksShowing.Items.Refresh();
         }
     }
 }

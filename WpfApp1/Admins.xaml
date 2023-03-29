@@ -13,7 +13,7 @@
                 <GradientStop Color="#FF2A475E" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <DataGrid x:Name="dtgCurrentBooks" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="24,91,345,50"/>
+        <DataGrid x:Name="dtgCurrentBooks" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="24,131,345,10" IsReadOnly="True"/>
         <TextBox x:Name="txtTitle" HorizontalAlignment="Left" Margin="601,100,0,0" TextWrapping="Wrap" Text="title" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="txtAuthor" HorizontalAlignment="Left" Margin="601,141,0,0" TextWrapping="Wrap" Text="author" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="txtYear" HorizontalAlignment="Left" Margin="601,178,0,0" TextWrapping="Wrap" Text="year" VerticalAlignment="Top" Width="120"/>
@@ -24,8 +24,17 @@
         <Button x:Name="btnRefresh_" Content="Refresh" HorizontalAlignment="Left" Margin="704,364,0,0" VerticalAlignment="Top" Width="69" Click="btnRefresh__Click" Background="White"/>
         <Label Content="Admin screen" HorizontalAlignment="Center" Margin="0,27,0,0" VerticalAlignment="Top" Width="144" FontWeight="Bold" FontSize="20" Foreground="#FFFDFAFA"/>
         <Label Content="New book details:" HorizontalAlignment="Left" Margin="610,59,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <Label Content="Current books" HorizontalAlignment="Left" Margin="197,59,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="Current books" HorizontalAlignment="Left" Margin="24,100,0,0" VerticalAlignment="Top" Foreground="White"/>
         <TextBox x:Name="txtStock" HorizontalAlignment="Left" Margin="602,328,0,0" TextWrapping="Wrap" Text="stock amount" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="btnAdminHome" Content="Home" HorizontalAlignment="Left" Margin="35,27,0,0" VerticalAlignment="Top" Width="51" Background="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" Click="btnAdminHome_Click_1"/>
+        <TextBox x:Name="txtSearch" HorizontalAlignment="Left" Margin="183,100,0,0" TextWrapping="Wrap" Text="Search:" VerticalAlignment="Top" Width="174" FontSize="17" TextChanged="txtSearch_TextChanged"/>
+        <Label Content="Title:" HorizontalAlignment="Left" Margin="529,96,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="Author:" HorizontalAlignment="Left" Margin="529,137,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="Year: " HorizontalAlignment="Left" Margin="529,174,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="Publisher:" HorizontalAlignment="Left" Margin="529,214,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="ISBN: " HorizontalAlignment="Left" Margin="529,254,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="Category: " HorizontalAlignment="Left" Margin="522,291,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="Stock amount:" HorizontalAlignment="Left" Margin="511,322,0,0" VerticalAlignment="Top" Foreground="White"/>
 
     </Grid>
 </Window>

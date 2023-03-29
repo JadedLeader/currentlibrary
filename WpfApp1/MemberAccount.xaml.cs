@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Xml.Linq;
 using System.Data;
+using System.Reflection.Emit;
 
 namespace WpfApp1
 {
@@ -23,6 +24,7 @@ namespace WpfApp1
     {
 
         string path = "AccountDetails.xml";
+        string library = "Library.xml";
 
         private Global _global;
         private String Username; 
@@ -34,17 +36,12 @@ namespace WpfApp1
 
             Username = _global.UserCurrent.username;
 
-            //when the page loads up we want to filter by the username that they logged in with then initiliase a data grid with that info
+            xmlController xmlController = new xmlController();
 
-            DataSet data = new DataSet();
+            List<CheckedOutBooks> data = xmlController.Getuserscheckedoutbooks(Username);
 
-            data.ReadXml(path);
-
-            dtgMemberAccount.ItemsSource = data.Tables[0].DefaultView;
-
-            //worst comes to worst if you can't get the data grid view to work to show you the books a user currently has checked out just filter the file using xdoc and put it in a txt box/block
-
-
+            dtgMemberAccount.ItemsSource = data;
+               
         }
 
         private void btnLogout_Click(object sender, RoutedEventArgs e)
@@ -63,6 +60,31 @@ namespace WpfApp1
             checkedOutMembersBooks.Show();
 
             this.Hide();
+        }
+
+        private void btnReturnedBooks_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            
+            MemberAccount member = new MemberAccount(_global);
+
+            member.Show();
+
+            this.Close();
+        }
+
+        private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            
+        }
+
+        private void btnGenerate_Click(object sender, RoutedEventArgs e)
+        {
+           
         }
     }
 }

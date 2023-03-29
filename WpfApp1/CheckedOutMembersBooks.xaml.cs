@@ -69,11 +69,22 @@ namespace WpfApp1
             foreach (var item in grabbingthings)
             {
                 txtinfo_.Text += item.Value + "\n";
-            }
+            } 
+
+            
 
             MessageBox.Show("possible it worked");
 
             
+        }
+
+        private void txtAccountInfo_Click(object sender, RoutedEventArgs e)
+        {
+            MemberAccount member = new MemberAccount(_global);
+
+            member.Show();
+
+            this.Hide();
         }
     }
 }

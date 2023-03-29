@@ -89,18 +89,8 @@ namespace WpfApp1
                     PhoneNumber = singleuser.Element("PhoneNumber").Value, 
                     librarycard = singleuser.Element("LibraryCard").Value,
 
-                    //this is populating the variables we have saved in the "Accounts" class to be used for later use
-                    
-                    bookscheckedout = singleuser.Element("BooksCheckedOut").Elements().Select(x => 
-                        new CheckedOutBooks 
-                        {
-                            Title = x.Element("BookCheckedOut").Value, 
-                            checkedoutdate = x.Element("DateCheckedOut").Value, 
-                            duebackdate = x.Element("DueDate").Value,
-                            bookstatus = x.Element("status").Value,
-
-                        }).ToList(), 
-                };
+                     
+                }; 
 
                 BookHomePage home = new BookHomePage(_global);
 
@@ -108,7 +98,7 @@ namespace WpfApp1
 
                 this.Hide();
 
-                MessageBox.Show("username and password are within the file");
+                
             }
 
             
@@ -116,13 +106,6 @@ namespace WpfApp1
 
 
         }
-
-
-
-
-
-
-    
 
         private void btnSignup_Click(object sender, RoutedEventArgs e)
         {
@@ -146,6 +129,15 @@ namespace WpfApp1
         {
             txtUsernameInput.Clear();
             txtPasswordInput.Clear();
+        }
+
+        private void btnForgottenPassword_Click(object sender, RoutedEventArgs e)
+        {
+            PasswordReset reset = new PasswordReset();
+
+            reset.Show();
+
+            this.Hide();
         }
     }
 }

@@ -20,9 +20,13 @@ namespace WpfApp1
     /// </summary>
     public partial class MemberRemoval : Window
     {
-        public MemberRemoval()
+
+        private Global _global; 
+        public MemberRemoval(Global globals)
         {
             InitializeComponent();
+
+            _global = globals;
 
             DataSet data = new DataSet();
 
@@ -35,7 +39,7 @@ namespace WpfApp1
 
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
-            MemberRemoval remove = new MemberRemoval();
+            MemberRemoval remove = new MemberRemoval(_global);
 
             remove.Show();
 
@@ -49,6 +53,36 @@ namespace WpfApp1
             uses.MemberDelete(txtMemberUsername.Text);
 
             MessageBox.Show("Member deleted");
+        }
+
+        private void btnAdminHome_Click(object sender, RoutedEventArgs e)
+        {
+            AdminHome home = new AdminHome(_global); 
+
+            home.Show();
+
+            this.Hide();
+        }
+
+        private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+           /* DataSet dataSet = new DataSet();
+            //Reads the XML file into the dataset
+            dataSet.ReadXml(@"AccountDetails.xml");
+            //Sets the datasource for the datagrid to be the dataset
+            //dgVideos.ItemsSource = dataSet.Tables[0].DefaultView;
+
+            DataView dv = dataSet.Tables[0].DefaultView;
+
+            StringBuilder sb = new StringBuilder();
+            foreach (DataColumn column in dv.Table.Columns)
+            {
+                sb.AppendFormat("[{0}] Like '%{1}%' OR ", column.ColumnName, txtSearch.Text);
+            }
+            sb.Remove(sb.Length - 3, 3);
+            dv.RowFilter = sb.ToString();
+            dtgMemberDetails.ItemsSource = dv;
+            dtgMemberDetails.Items.Refresh(); */
         }
     }
 }

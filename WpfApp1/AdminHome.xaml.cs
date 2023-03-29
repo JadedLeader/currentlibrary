@@ -23,26 +23,28 @@ namespace WpfApp1
 
         private Global _global;
         public String adminusername;
-        public AdminHome(Global global)
+
+        string usersdeets = "AccountDetails.xml";
+        public AdminHome(Global globals)
         {
             InitializeComponent();
 
+            _global = globals;
+
             DataSet data = new DataSet();
 
-            data.ReadXml(@"AccountDetails.xml");
+            data.ReadXml(usersdeets);
 
             dtgUserList.ItemsSource = data.Tables[0].DefaultView;
             
-            _global = global;
-
             adminusername = _global.AdminCurrent.AdminUsername;   
 
-            lblAdminName.Content = adminusername;
+            lblAdminName.Content = "Welcome, " + adminusername;
         }
 
         private void btnAddBookScreen_Click(object sender, RoutedEventArgs e)
         {
-            Admins admins = new Admins();
+            Admins admins = new Admins(_global);
 
             admins.Show();
 
@@ -51,7 +53,7 @@ namespace WpfApp1
 
         private void btnUpdateBook_Click(object sender, RoutedEventArgs e)
         {
-            AdminUpdate adminupdate = new AdminUpdate();
+            AdminUpdate adminupdate = new AdminUpdate(_global);
 
             adminupdate.Show();
 
@@ -60,7 +62,7 @@ namespace WpfApp1
 
         private void btnRemoveUser_Click(object sender, RoutedEventArgs e)
         {
-            MemberRemoval remove = new MemberRemoval();
+            MemberRemoval remove = new MemberRemoval(_global);
 
             remove.Show();
 
@@ -69,7 +71,7 @@ namespace WpfApp1
 
         private void btnRemoveBook_Click(object sender, RoutedEventArgs e)
         {
-            AdminRemoveBook remove = new AdminRemoveBook();
+            AdminRemoveBook remove = new AdminRemoveBook(_global);
 
             remove.Show();
 
@@ -96,7 +98,7 @@ namespace WpfApp1
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            EditMember editmember = new EditMember();
+            EditMember editmember = new EditMember(_global);
 
             editmember.Show();
 

@@ -26,10 +26,11 @@ namespace WpfApp1
         private Global _global;
 
         string library = "library.xml";
-        public Admins()
+        public Admins(Global globals)
         {
             InitializeComponent();
 
+            _global = globals;
             DataSet data = new DataSet();
 
             data.ReadXml(@"Library.xml");
@@ -39,7 +40,7 @@ namespace WpfApp1
 
         private void btnAddBook_Click(object sender, RoutedEventArgs e)
         {
-            xmlController uses = new xmlController();
+            
 
             Books book = new Books();
 
@@ -72,11 +73,50 @@ namespace WpfApp1
 
         private void btnRefresh__Click(object sender, RoutedEventArgs e)
         {
-            Admins admins = new Admins();
+            Admins admins = new Admins(_global);
 
             admins.Show();
 
             this.Close();
+        }
+
+        private void btnAdminHome_Click(object sender, RoutedEventArgs e)
+        {
+            AdminHome home = new AdminHome(_global);
+
+            home.Show();
+
+            this.Hide();
+        }
+
+        private void btnAdminHome_Click_1(object sender, RoutedEventArgs e)
+        {
+            AdminHome home = new AdminHome(_global);
+
+            home.Show();
+
+            this.Hide();
+        }
+
+        private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            DataSet dataSet = new DataSet();
+            //Reads the XML file into the dataset
+            dataSet.ReadXml(@"Library.xml");
+            //Sets the datasource for the datagrid to be the dataset
+            //dgVideos.ItemsSource = dataSet.Tables[0].DefaultView;
+
+            DataView dv = dataSet.Tables[0].DefaultView;
+
+            StringBuilder sb = new StringBuilder();
+            foreach (DataColumn column in dv.Table.Columns)
+            {
+                sb.AppendFormat("[{0}] Like '%{1}%' OR ", column.ColumnName, txtSearch.Text);
+            }
+            sb.Remove(sb.Length - 3, 3);
+            dv.RowFilter = sb.ToString();
+            dtgCurrentBooks.ItemsSource = dv;
+            dtgCurrentBooks.Items.Refresh();
         }
     }
 }

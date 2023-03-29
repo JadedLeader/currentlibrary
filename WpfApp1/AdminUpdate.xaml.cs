@@ -11,7 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Data; 
+using System.Data;
+using System.Runtime.InteropServices;
 
 namespace WpfApp1
 {
@@ -20,15 +21,20 @@ namespace WpfApp1
     /// </summary>
     public partial class AdminUpdate : Window
     {
-        public AdminUpdate()
+
+        private Global _global;
+        public AdminUpdate(Global globals)
         {
             InitializeComponent();
+
+            _global = globals;
 
             DataSet data = new DataSet();
 
             data.ReadXml(@"Library.xml");
 
             dtgUpdateGrid.ItemsSource = data.Tables[0].DefaultView;
+            
         }
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
@@ -50,11 +56,41 @@ namespace WpfApp1
 
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
-            AdminUpdate admins = new AdminUpdate();
+            AdminUpdate admins = new AdminUpdate(_global);
 
             admins.Show();
 
             this.Close();
+        }
+
+        private void btnAdminHome_Click(object sender, RoutedEventArgs e)
+        {
+            AdminHome home = new AdminHome(_global);
+
+            home.Show();
+
+            this.Hide();
+        }
+
+        private void txtSearchBar_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            DataSet dataSet = new DataSet();
+            //Reads the XML file into the dataset
+            dataSet.ReadXml(@"Library.xml");
+            //Sets the datasource for the datagrid to be the dataset
+            //dgVideos.ItemsSource = dataSet.Tables[0].DefaultView;
+
+            DataView dv = dataSet.Tables[0].DefaultView;
+
+            StringBuilder sb = new StringBuilder();
+            foreach (DataColumn column in dv.Table.Columns)
+            {
+                sb.AppendFormat("[{0}] Like '%{1}%' OR ", column.ColumnName, txtSearchBar.Text);
+            }
+            sb.Remove(sb.Length - 3, 3);
+            dv.RowFilter = sb.ToString();
+            dtgUpdateGrid.ItemsSource = dv;
+            dtgUpdateGrid.Items.Refresh();
         }
     }
 }
