@@ -22,6 +22,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Runtime.Remoting.Messaging;
+using System.Globalization;
 
 namespace WpfApp1
 {
@@ -72,6 +73,7 @@ namespace WpfApp1
             //btnReserve.IsEnabled = false;
             //btnRenew.IsEnabled = false; 
 
+            //this block of code is for checking if the member has a reserved book that has come back in stock, letting them know accordingly
             XDocument xdoc = XDocument.Load(account);
 
             var grabbinginfo = xdoc.Descendants("user")
@@ -114,36 +116,39 @@ namespace WpfApp1
 
             }
 
-            //creating functionality for letting the user know if a books due date is late
+            //this is to let the user know that they have a book currently checked out in their name that has gone over their due date
 
-            /*XDocument docx = XDocument.Load(account);
+            XDocument docx = XDocument.Load(account); 
 
-            var overdue = docx.Descendants("user")
-                .SingleOrDefault(x => x.Element("username").Value == Username); 
+            var grabbing = docx.Descendants("user")
+                .Where(x => x.Element("username").Value == Username);
 
-            if(overdue != null)
+            if(grabbing != null)
             {
-                var datetimes = overdue.Descendants("book")
-                .Where(x => DateTime.Parse(x.Element("DueDate").Value) > DateTime.Now)
-                .Select(x => x.Element("DueDate")); 
+                DateTime day = DateTime.Now;
 
-                if(datetimes != null)
+                var checking = grabbing.Descendants("book")
+                    .Where(x => x.Element("status").Value == bookout)
+                    .Select(x => x.Element("DueDate").Value);
+
+                if(checking != null)
                 {
-                    MessageBox.Show("There are no books that are overdue");
-                }
-                else
-                {
-                    foreach(var datetime in datetimes)
+                    foreach (var val in checking)
                     {
-                        MessageBox.Show(datetime + "is currently overdue");
-                    }
-                    
-                     //THIS IS WHERE YOU'D HANDLE THE FINES FOR OVERDUE BOOKS
-                    //OVERDUE BOOKS HAVE A GRACE PERIOD OF 7 DAYS AND THEN EVERY WEEK AFTER THAT 1% OF THE TOTAL BOOK PRICE IS ADDED 
-                }
+                        if (DateTime.TryParse(val, out DateTime dueDate) && dueDate < day)
+                        {
 
-                
-            } */
+                            MessageBox.Show("You have a book overdue, please check your account details to see which book is out of date");
+                            
+                        }
+                    }
+
+                }
+            }
+            else
+            {
+                MessageBox.Show("there is not a user of this type");
+            }
 
         }
 
@@ -156,13 +161,7 @@ namespace WpfApp1
             this.Close();
         }
 
-        private void txtUsername_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            
-
-          
-        }
-
+        //button that allows the user to checkout a book, 
         private void btnCheckout_Click(object sender, RoutedEventArgs e)
         {
            
@@ -176,10 +175,12 @@ namespace WpfApp1
             if (singleUser == null)
             {
                 //you would need to handle if it could not find the user for some reason.
-                return;
+
+                MessageBox.Show("Sorry, we couldn't find this user. Try entering your details again and if that doesn't work make sure you have an account");
+               
             }
 
-            //grabbing the library card node, checkng it's value
+            //grabbing the library card node, checkng it's value, two functions are used, "grabbinglibrarystock" and "removingreservedbook"
             if (singleUser.Element("LibraryCard").Value == txtLibraryCard.Text)
             {
 
@@ -203,13 +204,15 @@ namespace WpfApp1
                             new XElement("DueDate", date.AddMonths(1).ToShortDateString()),
                             new XElement("status", bookout)));
 
-                    //savign the file
+                    //saving the file
                     singleUser.Document.Save(account);
 
+                    //function being used
                     GrabbingLibraryStock(txtTitle.Text, _global);
 
                     MessageBox.Show("Book has been checked out!");
 
+                    //function being used
                     RemovingReservedbook(singleUser, txtTitle.Text);
                 }
                 else
@@ -251,13 +254,6 @@ namespace WpfApp1
             txtCategory.Text = row.Row.ItemArray[5].ToString();
         }
 
-        
-        private void txtSearchBar_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            
-
-        }
-
         private void btnReturn_Click(object sender, RoutedEventArgs e)
         {
             //check the users username that they logged in with
@@ -293,12 +289,6 @@ namespace WpfApp1
                 
 
             }
-
-
-            
-
-
-
         }
         
         //passing the loading from the previous xdoc since it copies over the filtering we've already done into the function
@@ -503,11 +493,7 @@ namespace WpfApp1
          
         }
 
-        private void btnSearch_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
+  
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
             BookHomePage home = new BookHomePage(_global);

@@ -33,13 +33,6 @@ namespace WpfApp1
 
             doc.Load(path);
 
-            //needs to update hte account details xml file on books checked out by adding only the title of the book
-
-            //message box saying that the book has been checked out 
-
-
-
-
         }
 
         public void AddBook(Books newbook)
