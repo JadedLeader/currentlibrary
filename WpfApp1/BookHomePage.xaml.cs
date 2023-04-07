@@ -26,6 +26,8 @@ using System.Globalization;
 
 namespace WpfApp1
 {
+
+
     /// <summary>
     /// Interaction logic for BookHomePage.xaml
     /// </summary>
@@ -139,6 +141,8 @@ namespace WpfApp1
                         {
 
                             MessageBox.Show("You have a book overdue, please check your account details to see which book is out of date");
+
+                            //implement fines here
                             
                         }
                     }
@@ -161,7 +165,7 @@ namespace WpfApp1
             this.Close();
         }
 
-        //button that allows the user to checkout a book, 
+        //button that allows the user to checkout a book
         private void btnCheckout_Click(object sender, RoutedEventArgs e)
         {
            
@@ -229,7 +233,38 @@ namespace WpfApp1
 
 
         }
-       
+
+        //function that's used within the checkout book function, takes the title text box value and initializes a instance of Global as parameters
+        public void GrabbingLibraryStock(string title, Global globals)
+        {
+
+            Books book = new Books();
+
+            _global = globals;
+
+            XDocument xdoc = XDocument.Load(library);
+
+            var BookGrab = xdoc.Descendants("book")
+                .SingleOrDefault(x => x.Element("title").Value == title);
+
+            if (BookGrab == null)
+            {
+                MessageBox.Show("We couldn't find this book, please try selecting a different one");
+            }
+            else
+            {
+                var stock = Convert.ToInt32(BookGrab.Element("stock").Value);
+                stock--;
+
+                BookGrab.Element("stock").Value = stock.ToString();
+
+                BookGrab.Document.Save(library);
+
+            }
+
+        }
+
+        //function that's used within checkout book function, takes an Xelement and the title text box value as parameters
         private void RemovingReservedbook(XElement usercheck, string title)
         {
             var thing = usercheck.Descendants("book")
@@ -242,6 +277,7 @@ namespace WpfApp1
             MessageBox.Show("Reserved book for this user has now been deleted since it's checked out");
         }
 
+        //setting the text boxes equal to what value the user selected on the datagrid
         private void dtgBooksShowing_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             DataRowView row = dtgBooksShowing.SelectedItem as DataRowView;
@@ -290,22 +326,8 @@ namespace WpfApp1
 
             }
         }
-        
-        //passing the loading from the previous xdoc since it copies over the filtering we've already done into the function
 
-        public void DeleteBook(string title, XElement usercollection)
-        {
-            
-
-            var booktodelete = usercollection.Descendants("book")
-                .Where(x => x.Element("BookCheckedOut").Value == title);
-                
-            booktodelete.Remove();
-
-            usercollection.Document.Save(account);
-            
-        }
-
+        //
         public void UpdatingBookReturn(XElement bookreturn, string title)
         {
 
@@ -317,41 +339,12 @@ namespace WpfApp1
 
             bookreturn.Document.Save(account);
 
-            
-        }
-
-        public void GrabbingLibraryStock(string title, Global globals)
-        {
-           
-            Books book = new Books();
-
-            _global = globals;
-
-            XDocument xdoc = XDocument.Load(library);
-
-            var BookGrab = xdoc.Descendants("book")
-                .SingleOrDefault(x => x.Element("title").Value == title);
-
-            if(BookGrab == null)
-            {
-                MessageBox.Show("We couldn't find this book, please try selecting a different one");
-            }
-            else
-            {
-                var stock = Convert.ToInt32(BookGrab.Element("stock").Value);
-                stock--;
-
-                BookGrab.Element("stock").Value = stock.ToString();
-
-                BookGrab.Document.Save(library);
-
-            }
 
         }
 
         public void GrabbingLibraryStockIncrement(string title, Global globals)
         {
-            
+
             Books book = new Books();
 
             _global = globals;
@@ -376,6 +369,22 @@ namespace WpfApp1
             }
         }
 
+        
+        //function used within the checkout book function, takes the title text box value and the Xelement from the checkout book function as parameters
+        public void DeleteBook(string title, XElement usercollection)
+        {
+            var booktodelete = usercollection.Descendants("book")
+                .Where(x => x.Element("BookCheckedOut").Value == title);
+                
+            booktodelete.Remove();
+
+            usercollection.Document.Save(account);
+            
+        }
+
+        
+
+        //disabing the buttons if the library card text box is empty, enabling them otherwise
         private void txtLibraryCard_TextChanged(object sender, TextChangedEventArgs e)
         {
             if(txtLibraryCard.Text == "")
